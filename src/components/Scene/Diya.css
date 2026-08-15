@@ -1,0 +1,87 @@
+.diya {
+  position: relative;
+  --base-w: 34px;
+  --base-h: 13px;
+  --flame-w: 8px;
+  --flame-h: 19px;
+  --diya-glow: 56px;
+  width: var(--diya-glow);
+  height: calc(var(--base-h) + var(--flame-h) + 8px);
+}
+
+@media (min-width: 1024px) {
+  .diya {
+    --base-w: 46px;
+    --base-h: 16px;
+    --flame-w: 9px;
+    --flame-h: 22px;
+    --diya-glow: 68px;
+  }
+}
+
+.diya__glow {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  margin-left: calc(var(--diya-glow) / -2);
+  width: var(--diya-glow);
+  height: var(--diya-glow);
+  border-radius: var(--radius-round);
+  background: radial-gradient(closest-side, rgb(var(--c-glow) / 0.45), rgb(var(--c-glow) / 0));
+  animation: glowPulse var(--dur-glow-fast) var(--ease-soft) infinite;
+  /* Hidden on small screens: the frame strip is too thin for the halo
+     to clear the player. Shown once there's room (desktop). */
+  display: none;
+}
+
+@media (min-width: 1024px) {
+  .diya__glow {
+    display: block;
+  }
+}
+
+.diya__flame {
+  position: absolute;
+  bottom: var(--base-h);
+  left: 50%;
+  margin-left: calc(var(--flame-w) / -2);
+  width: var(--flame-w);
+  height: var(--flame-h);
+  border-radius: 50% 50% 45% 45%;
+  background: radial-gradient(
+    60% 70% at 50% 70%,
+    rgb(var(--c-flame-core)),
+    rgb(var(--c-amber)) 60%,
+    rgb(var(--c-amber) / 0)
+  );
+  transform-origin: 50% 100%;
+  animation: flame var(--dur-flame) var(--ease-soft) infinite;
+  will-change: transform, opacity;
+}
+
+.diya__base {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  margin-left: calc(var(--base-w) / -2);
+  width: var(--base-w);
+  height: var(--base-h);
+  border-radius: 0 0 calc(var(--base-w) / 2) calc(var(--base-w) / 2);
+  background: linear-gradient(180deg, rgb(var(--c-clay)), rgb(var(--c-clay-dark)));
+  box-shadow: var(--shadow-brass-sm);
+}
+
+/* Mirrors the copy in Player.css (keyframes are global-scoped) */
+@keyframes glowPulse {
+  0% { opacity: 0.55; }
+  50% { opacity: 0.8; }
+  100% { opacity: 0.55; }
+}
+
+@keyframes flame {
+  0% { transform: scale(1, 1) translateY(0); opacity: 0.95; }
+  28% { transform: scale(0.88, 1.12) translateY(-1px); opacity: 1; }
+  55% { transform: scale(1.06, 0.94) translateY(1px); opacity: 0.85; }
+  78% { transform: scale(0.94, 1.06) translateY(-1px); opacity: 1; }
+  100% { transform: scale(1, 1) translateY(0); opacity: 0.95; }
+}

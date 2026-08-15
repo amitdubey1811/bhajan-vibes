@@ -1,0 +1,87 @@
+/* ============================================================
+   Bhajan Vibes — global base
+   Reset, base typography, focus, reduced-motion. No component
+   styling here; no colour literals (see tokens.css).
+   ============================================================ */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  background: rgb(var(--c-night));
+  color: rgb(var(--c-ink));
+  font-family: var(--font-serif);
+  font-size: 16px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* Media defaults: block-level, never overflow their box */
+img,
+svg,
+video {
+  display: block;
+  max-width: 100%;
+}
+
+/* Form controls inherit type instead of the UA sans-serif */
+button,
+input {
+  font: inherit;
+  color: inherit;
+}
+
+button {
+  background: none;
+  border: 0;
+  cursor: pointer;
+}
+
+a {
+  color: rgb(var(--c-amber));
+  text-decoration: none;
+}
+
+a:hover {
+  color: rgb(var(--c-flame-core));
+}
+
+/* Visible focus for keyboard users only */
+:focus-visible {
+  outline: 2px solid rgb(var(--c-amber));
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* Respect reduced-motion globally: freeze mist, flame, glow, dust
+   at their resting keyframe rather than animating. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
