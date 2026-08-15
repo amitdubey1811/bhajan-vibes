@@ -1,0 +1,116 @@
+.player {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  --player-size: clamp(240px, 74vw, 281px); /* never < 240 */
+  --frame-brass: 5px;
+  --frame-recess: 16px;
+  --sill-h: 16px;
+  --sill-overhang: 0px; /* sill extends past the window (desktop only) */
+}
+
+@media (min-width: 768px) {
+  .player {
+    --player-size: 300px;
+    --frame-brass: 6px;
+    --frame-recess: 24px;
+    --sill-h: 20px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .player {
+    --player-size: 360px;
+    --frame-recess: 30px;
+    --sill-h: 22px;
+    --sill-overhang: 28px;
+  }
+}
+
+/* Warm light bleeding from behind the window — strictly behind the
+   player, never over it. */
+.player__glow {
+  position: absolute;
+  left: 50%;
+  top: 45%;
+  transform: translate(-50%, -50%);
+  width: calc(var(--player-size) * 1.9);
+  height: calc(var(--player-size) * 1.9);
+  background: radial-gradient(
+    closest-side,
+    rgb(var(--c-glow) / 0.5),
+    rgb(var(--c-glow) / 0)
+  );
+  animation: glowPulse var(--dur-glow) var(--ease-soft) infinite;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Brass frame */
+.player__window {
+  position: relative;
+  z-index: 1;
+  padding: var(--frame-brass);
+  background: linear-gradient(180deg, rgb(var(--c-brass)), rgb(var(--c-brass-dark)));
+  box-shadow: inset 0 0 0 1px rgb(var(--c-mist) / 0.25), var(--shadow-window);
+}
+
+/* Dark interior */
+.player__recess {
+  padding: var(--frame-recess);
+  background: linear-gradient(180deg, rgb(var(--c-window-dark-2)), rgb(var(--c-window-dark)));
+}
+
+/* The player box itself — holds the iframe, ≥ 240px, unobstructed */
+.player__screen {
+  width: var(--player-size);
+  height: var(--player-size);
+  background: rgb(var(--c-player-bezel));
+  outline: 1px solid rgb(var(--c-mist) / 0.22);
+  outline-offset: -1px;
+}
+
+.player__screen > * {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+/* Wooden sill below the window — overhangs the frame so the lamp has a
+   surface to rest on beyond the screen. */
+.player__sill {
+  margin-top: var(--space-3);
+  width: calc(
+    var(--player-size) + 2 * (var(--frame-recess) + var(--frame-brass)) + 2 * var(--sill-overhang)
+  );
+  height: var(--sill-h);
+  background: linear-gradient(180deg, rgb(var(--c-wood-sill)), rgb(var(--c-wood-sill-dark)));
+  box-shadow: var(--shadow-sill);
+  z-index: 1;
+}
+
+/* Lamp seated on the sill, at the window's lower-left corner. Kept left
+   of the screen's edge (x < screen-left) so nothing overlaps the player. */
+.player__diya {
+  position: absolute;
+  left: 0;
+  bottom: calc(var(--sill-h) - 2px);
+  transform: translateX(-50%);
+  z-index: 2;
+  pointer-events: none;
+}
+
+@media (min-width: 1024px) {
+  .player__diya {
+    left: -4px;
+  }
+}
+
+@keyframes glowPulse {
+  0% { opacity: 0.55; }
+  50% { opacity: 0.8; }
+  100% { opacity: 0.55; }
+}

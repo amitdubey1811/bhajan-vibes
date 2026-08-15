@@ -1,0 +1,53 @@
+.scene-image {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+.scene-image__lqip,
+.scene-image__full,
+.scene-image__grade,
+.scene-image__fog {
+  position: absolute;
+  inset: 0;
+}
+
+/* Gradient stand-in for the dawn photo. Replace with a base64 LQIP via
+   the `lqip` prop later; add `filter: blur(20px)` if that LQIP is raster. */
+.scene-image__lqip {
+  background:
+    radial-gradient(120% 60% at 30% 78%, rgb(var(--c-glow) / 0.25), rgb(var(--c-glow) / 0) 60%),
+    linear-gradient(180deg, rgb(var(--c-sky-cold)), rgb(var(--c-mist)) 50%, rgb(var(--c-wall-shade)));
+  background-size: cover;
+  background-position: center;
+}
+
+/* Full-res image fades in over the placeholder */
+.scene-image__full {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 600ms ease;
+}
+
+.scene-image__full.is-loaded {
+  opacity: 1;
+}
+
+/* Cold morning colour cast */
+.scene-image__grade {
+  pointer-events: none;
+  background: linear-gradient(
+    180deg,
+    rgb(var(--c-sky-cold) / 0.28),
+    rgb(var(--c-mist) / 0.12) 55%,
+    rgb(var(--c-mist) / 0.4)
+  );
+}
+
+/* Pale fog rising at the bottom — also the scrim under NowPlaying */
+.scene-image__fog {
+  pointer-events: none;
+  background: linear-gradient(180deg, rgb(var(--c-mist) / 0), rgb(var(--c-mist) / 0.55));
+}

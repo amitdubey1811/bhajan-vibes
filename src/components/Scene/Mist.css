@@ -1,0 +1,81 @@
+.mist {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.mist__band {
+  position: absolute;
+  left: -10%;
+  width: 120%;
+  height: 130px;
+  background: linear-gradient(
+    90deg,
+    rgb(var(--c-mist) / 0),
+    rgb(var(--c-mist) / 0.6) 45%,
+    rgb(var(--c-mist) / 0)
+  );
+  filter: blur(16px);
+  will-change: transform;
+}
+
+.mist__band--a {
+  top: 48%;
+  animation: mistA var(--dur-mist-a) var(--ease-soft) infinite;
+}
+
+.mist__band--b {
+  top: 62%;
+  height: 180px;
+  filter: blur(22px);
+  background: linear-gradient(
+    90deg,
+    rgb(var(--c-mist) / 0),
+    rgb(var(--c-mist) / 0.5) 55%,
+    rgb(var(--c-mist) / 0)
+  );
+  animation: mistB var(--dur-mist-b) var(--ease-soft) infinite;
+}
+
+.mist__dust {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: rgb(var(--c-cream));
+  will-change: transform, opacity;
+}
+
+.mist__dust--1 {
+  left: 56%;
+  top: 22%;
+  animation: dust var(--dur-dust) linear infinite;
+}
+
+.mist__dust--2 {
+  left: 62%;
+  top: 34%;
+  width: 2px;
+  height: 2px;
+  animation: dust 21s linear infinite 4s;
+}
+
+@keyframes mistA {
+  0% { transform: translate3d(-6%, 0, 0) scaleX(1); }
+  50% { transform: translate3d(6%, -1.5%, 0) scaleX(1.08); }
+  100% { transform: translate3d(-6%, 0, 0) scaleX(1); }
+}
+
+@keyframes mistB {
+  0% { transform: translate3d(8%, 1%, 0); }
+  50% { transform: translate3d(-8%, -1%, 0); }
+  100% { transform: translate3d(8%, 1%, 0); }
+}
+
+@keyframes dust {
+  0% { transform: translate3d(0, 0, 0); opacity: 0; }
+  15% { opacity: 0.5; }
+  85% { opacity: 0.35; }
+  100% { transform: translate3d(30px, -90px, 0); opacity: 0; }
+}
