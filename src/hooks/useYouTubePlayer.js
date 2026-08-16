@@ -42,6 +42,7 @@ export function useYouTubePlayer({ tracks, mountId, initialVolume = 80 }) {
   const [hasError, setHasError] = useState(false) // every track failed
   const [index, setIndex] = useState(0)
   const [volume, setVolume] = useState(initialVolume)
+  const [isPlaying, setIsPlaying] = useState(false)
 
   const playerRef = useRef(null)
   const indexRef = useRef(0) // source of truth inside YT callbacks
@@ -77,6 +78,21 @@ export function useYouTubePlayer({ tracks, mountId, initialVolume = 80 }) {
     goTo(indexRef.current - 1, { autoplay: true })
   }, [goTo])
 
+  // Play/pause the current track. The click is a user gesture, so
+  // playVideo() is allowed under the autoplay policy.
+  const togglePlay = useCallback(() => {
+    const player = playerRef.current
+    if (!player) return
+    startedRef.current = true
+    const YT = window.YT
+    const state = player.getPlayerState()
+    if (state === YT.PlayerState.PLAYING || state === YT.PlayerState.BUFFERING) {
+      player.pauseVideo()
+    } else {
+      player.playVideo()
+    }
+  }, [])
+
   const changeVolume = useCallback((value) => {
     const clamped = Math.max(0, Math.min(100, Math.round(value)))
     volumeRef.current = clamped
@@ -87,11 +103,20 @@ export function useYouTubePlayer({ tracks, mountId, initialVolume = 80 }) {
   const handleStateChange = useCallback(
     (event) => {
       const YT = window.YT
-      if (event.data === YT.PlayerState.PLAYING) {
+      const state = event.data
+      if (state === YT.PlayerState.PLAYING) {
         startedRef.current = true
         errorStreakRef.current = 0
-      } else if (event.data === YT.PlayerState.ENDED) {
+        setIsPlaying(true)
+      } else if (state === YT.PlayerState.ENDED) {
+        setIsPlaying(false)
         goTo(indexRef.current + 1, { autoplay: true })
+      } else if (
+        state === YT.PlayerState.PAUSED ||
+        state === YT.PlayerState.CUED ||
+        state === YT.PlayerState.UNSTARTED
+      ) {
+        setIsPlaying(false)
       }
     },
     [goTo],
@@ -164,6 +189,8 @@ export function useYouTubePlayer({ tracks, mountId, initialVolume = 80 }) {
     trackCount: tracks.length,
     next,
     prev,
+    isPlaying,
+    togglePlay,
     volume,
     setVolume: changeVolume,
   }

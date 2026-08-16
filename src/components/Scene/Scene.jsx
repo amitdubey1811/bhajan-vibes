@@ -3,6 +3,8 @@ import Mist from './Mist'
 import NowPlaying from '../NowPlaying/NowPlaying'
 import Player from '../Player/Player'
 import Controls from '../Controls/Controls'
+import dawnVillage from '../../assets/dawn-village.jpg'
+import { dawnVillageLqip } from '../../assets/dawnVillageLqip'
 import './Scene.css'
 
 /**
@@ -14,7 +16,7 @@ export default function Scene() {
   return (
     <main className="scene">
       <div className="scene__image">
-        <SceneImage />
+        <SceneImage src={dawnVillage} lqip={dawnVillageLqip} alt="" />
         <Mist />
         <div className="scene__now">
           <NowPlaying />

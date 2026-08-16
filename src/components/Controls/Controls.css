@@ -1,12 +1,32 @@
 .controls {
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   align-items: center;
   justify-content: center;
-  gap: var(--space-4);
+  gap: var(--space-3);
   margin-top: var(--space-4);
 
   --knob: 56px;
+}
+
+/* Tablet+ has room: restore the labelled, fixed-width volume in one row */
+@media (min-width: 768px) {
+  .controls {
+    flex-wrap: wrap;
+    gap: var(--space-4);
+  }
+
+  .controls__volume {
+    flex: 0 0 auto;
+  }
+
+  .controls__volume .controls__label {
+    display: block;
+  }
+
+  .controls__slider {
+    width: clamp(120px, 22vw, 150px);
+  }
 }
 
 @media (min-width: 1024px) {
@@ -18,6 +38,7 @@
 
 /* Brass round knobs (prev / next) */
 .controls__knob {
+  flex: 0 0 auto;
   width: var(--knob);
   height: var(--knob);
   border-radius: var(--radius-round);
@@ -52,16 +73,65 @@
 .controls__icon {
   width: 0;
   height: 0;
+  position: relative;
   border-top: 9px solid transparent;
   border-bottom: 9px solid transparent;
 }
 
+/* prev / next carry a skip bar so they read as ⏮ ⏭, distinct from play */
 .controls__icon--prev {
   border-right: 12px solid rgb(var(--c-window-dark));
 }
 
+.controls__icon--prev::before {
+  content: '';
+  position: absolute;
+  top: -9px;
+  left: -6px;
+  width: 3px;
+  height: 18px;
+  background: rgb(var(--c-window-dark));
+  border-radius: 1px;
+}
+
 .controls__icon--next {
   border-left: 12px solid rgb(var(--c-window-dark));
+}
+
+.controls__icon--next::after {
+  content: '';
+  position: absolute;
+  top: -9px;
+  left: 3px;
+  width: 3px;
+  height: 18px;
+  background: rgb(var(--c-window-dark));
+  border-radius: 1px;
+}
+
+/* Play/pause — the primary knob, slightly larger */
+.controls__knob--play {
+  width: calc(var(--knob) * 1.15);
+  height: calc(var(--knob) * 1.15);
+}
+
+.controls__icon--play {
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent;
+  border-left: 16px solid rgb(var(--c-window-dark));
+  margin-left: 4px; /* optical centering of the triangle */
+}
+
+.controls__icon--pause {
+  display: flex;
+  gap: 5px;
+}
+
+.controls__icon--pause span {
+  width: 4px;
+  height: 20px;
+  background: rgb(var(--c-window-dark));
+  border-radius: 1px;
 }
 
 /* Volume */
@@ -69,6 +139,14 @@
   display: flex;
   flex-direction: column;
   gap: var(--space-2);
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+/* On phones the row is tight: the slider fills the leftover space and its
+   text label is dropped (the input keeps its aria-label). */
+.controls__volume .controls__label {
+  display: none;
 }
 
 .controls__label {
@@ -85,7 +163,7 @@
 .controls__slider {
   -webkit-appearance: none;
   appearance: none;
-  width: clamp(90px, 26vw, 150px);
+  width: 100%;
   height: 5px;
   border-radius: var(--radius-sm);
   background: rgb(var(--c-wood-sill-dark));
@@ -115,6 +193,7 @@
 
 /* Playlist trigger */
 .controls__playlist {
+  flex: 0 0 auto;
   display: flex;
   flex-direction: column;
   align-items: center;

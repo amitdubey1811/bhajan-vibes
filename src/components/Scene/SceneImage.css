@@ -7,19 +7,21 @@
 .scene-image__lqip,
 .scene-image__full,
 .scene-image__grade,
-.scene-image__fog {
+.scene-image__scrim {
   position: absolute;
   inset: 0;
 }
 
-/* Gradient stand-in for the dawn photo. Replace with a base64 LQIP via
-   the `lqip` prop later; add `filter: blur(20px)` if that LQIP is raster. */
+/* Blurred placeholder. The `lqip` prop overrides background-image with the
+   base64 thumb; the gradient stays as a fallback when no lqip is given. */
 .scene-image__lqip {
   background:
     radial-gradient(120% 60% at 30% 78%, rgb(var(--c-glow) / 0.25), rgb(var(--c-glow) / 0) 60%),
     linear-gradient(180deg, rgb(var(--c-sky-cold)), rgb(var(--c-mist)) 50%, rgb(var(--c-wall-shade)));
   background-size: cover;
-  background-position: center;
+  background-position: 50% 42%;
+  filter: blur(24px);
+  transform: scale(1.15); /* hide blurred edges */
 }
 
 /* Full-res image fades in over the placeholder */
@@ -27,6 +29,7 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: 50% 42%; /* bias toward temple + sky */
   opacity: 0;
   transition: opacity 600ms ease;
 }
@@ -35,19 +38,25 @@
   opacity: 1;
 }
 
-/* Cold morning colour cast */
+/* Gentle morning haze — keeps the golden warmth of the dawn */
 .scene-image__grade {
   pointer-events: none;
   background: linear-gradient(
     180deg,
-    rgb(var(--c-sky-cold) / 0.28),
-    rgb(var(--c-mist) / 0.12) 55%,
-    rgb(var(--c-mist) / 0.4)
+    rgb(var(--c-sky-cold) / 0.14),
+    rgb(var(--c-mist) / 0.06) 45%,
+    rgb(var(--c-night) / 0.18)
   );
 }
 
-/* Pale fog rising at the bottom — also the scrim under NowPlaying */
-.scene-image__fog {
+/* Dark scrim anchored bottom-left for text legibility; clears toward the
+   temple and sky so they stay bright. */
+.scene-image__scrim {
   pointer-events: none;
-  background: linear-gradient(180deg, rgb(var(--c-mist) / 0), rgb(var(--c-mist) / 0.55));
+  background: linear-gradient(
+    to top right,
+    rgb(var(--c-night) / 0.78),
+    rgb(var(--c-night) / 0.28) 42%,
+    rgb(var(--c-night) / 0) 68%
+  );
 }
