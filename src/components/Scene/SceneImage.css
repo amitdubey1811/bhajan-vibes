@@ -24,18 +24,32 @@
   transform: scale(1.15); /* hide blurred edges */
 }
 
-/* Full-res image fades in over the placeholder */
+/* Full-res image: crossfades in (opacity) and slowly drifts (Ken Burns) */
 .scene-image__full {
   width: 100%;
   height: 100%;
   object-fit: cover;
   object-position: 50% 42%; /* bias toward temple + sky */
   opacity: 0;
-  transition: opacity 600ms ease;
+  transition: opacity 1100ms ease;
+  transform-origin: 50% 42%;
+  animation: kenburns 45s ease-in-out infinite alternate;
+  will-change: transform, opacity;
 }
 
-.scene-image__full.is-loaded {
+.scene-image__full.is-shown {
   opacity: 1;
+}
+
+/* Slow zoom + drift so the scene never feels static. Scale stays >= 1 so
+   the image always covers; the drift stays within the zoom's headroom. */
+@keyframes kenburns {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.07) translate3d(-1.5%, -1.2%, 0);
+  }
 }
 
 /* Gentle morning haze — keeps the golden warmth of the dawn */
