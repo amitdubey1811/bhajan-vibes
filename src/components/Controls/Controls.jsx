@@ -12,7 +12,8 @@ const IS_IOS = (() => {
 })()
 
 export default function Controls() {
-  const { prev, next, volume, setVolume, trackCount, isReady } = usePlayer()
+  const { prev, next, volume, setVolume, trackCount, isReady, isPlaying, togglePlay } =
+    usePlayer()
 
   const openPlaylist = () => {
     // Playlist panel is out of Phase-1 scope; the trigger exists per spec.
@@ -28,6 +29,23 @@ export default function Controls() {
         aria-label="Previous bhajan"
       >
         <span className="controls__icon controls__icon--prev" aria-hidden="true" />
+      </button>
+
+      <button
+        type="button"
+        className="controls__knob controls__knob--play"
+        onClick={togglePlay}
+        disabled={!isReady}
+        aria-label={isPlaying ? 'Pause' : 'Play'}
+      >
+        {isPlaying ? (
+          <span className="controls__icon--pause" aria-hidden="true">
+            <span />
+            <span />
+          </span>
+        ) : (
+          <span className="controls__icon controls__icon--play" aria-hidden="true" />
+        )}
       </button>
 
       <button

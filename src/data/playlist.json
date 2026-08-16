@@ -38,5 +38,53 @@
     "titleDevanagari": "नमो नमो शंकरा",
     "singer": "Amit Trivedi",
     "year": 2018
+  },
+  {
+    "id": "hey-dukh-bhanjan-maruti-nandan",
+    "youtubeId": "Av7u2f0uDyk",
+    "title": "Hey Dukh Bhanjan Maruti Nandan",
+    "titleDevanagari": "हे दुःख भंजन मारुती नंदन",
+    "singer": "Traditional (Hanuman Aarti)",
+    "year": 2013
+  },
+  {
+    "id": "hey-mahaveer-karo-kalyan",
+    "youtubeId": "kIFJ5_xNslM",
+    "title": "Hey Mahaveer Karo Kalyan",
+    "titleDevanagari": "हे महावीर करो कल्याण",
+    "singer": "Tanmay Srivastava",
+    "year": 2023
+  },
+  {
+    "id": "sankat-mochan-hanuman-ashtak",
+    "youtubeId": "HH_a6aRO1TE",
+    "title": "Sankat Mochan Hanuman Ashtak",
+    "titleDevanagari": "संकटमोचन हनुमान अष्टक",
+    "singer": "Hariharan",
+    "year": 2012
+  },
+  {
+    "id": "hey-ram-hey-ram",
+    "youtubeId": "aUHwnSnKD60",
+    "title": "Hey Ram Hey Ram",
+    "titleDevanagari": "हे राम हे राम",
+    "singer": "Jagjit Singh",
+    "year": 1997
+  },
+  {
+    "id": "bhor-bhayi-din-chad-gaya",
+    "youtubeId": "A4WW9ezwazc",
+    "title": "Bhor Bhayi Din Chad Gaya",
+    "titleDevanagari": "भोर भई दिन चढ़ गया",
+    "singer": "Vidhi Sharma",
+    "year": 2019
+  },
+  {
+    "id": "shri-ram-chandra-kripalu",
+    "youtubeId": "igJHuojQHeo",
+    "title": "Shri Ram Chandra Kripalu Bhaj Man",
+    "titleDevanagari": "श्री राम चंद्र कृपालु भजमन",
+    "singer": "Suresh Wadkar",
+    "year": 2013
   }
 ]

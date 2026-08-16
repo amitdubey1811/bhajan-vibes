@@ -29,7 +29,7 @@ export default function SceneImage({ src = null, lqip = null, alt = '' }) {
       )}
 
       <div className="scene-image__grade" aria-hidden="true" />
-      <div className="scene-image__fog" aria-hidden="true" />
+      <div className="scene-image__scrim" aria-hidden="true" />
     </div>
   )
 }

@@ -8,7 +8,7 @@ export default function NowPlaying() {
 
   return (
     <div className="now-playing">
-      <p className="now-playing__eyebrow" lang="hi">अभी बज रहा है</p>
+      <p className="now-playing__eyebrow">Now Playing</p>
       <h1 className="now-playing__title" lang="hi">
         {currentTrack.titleDevanagari}
       </h1>

@@ -7,9 +7,14 @@
 
 .now-playing__eyebrow {
   font-family: var(--font-label);
-  font-size: clamp(9px, 1.2vw, 11px);
+  font-size: clamp(11px, 1.3vw, 12px);
   letter-spacing: var(--tracking-wide);
-  color: rgb(var(--c-label));
+  color: rgb(var(--c-flame-core));
+  /* Dense dark backing so the small label reads on any part of the image */
+  text-shadow:
+    0 0 2px rgb(var(--c-night) / 0.95),
+    0 1px 3px rgb(var(--c-night) / 0.95),
+    0 0 9px rgb(var(--c-night) / 0.85);
 }
 
 .now-playing__title {
@@ -17,16 +22,16 @@
   font-weight: var(--weight-regular);
   font-size: clamp(38px, 7vw, 66px);
   line-height: 1.16;
-  color: rgb(var(--c-ink-title));
-  text-shadow: 0 1px 3px rgb(var(--c-mist) / 0.55);
+  color: rgb(var(--c-cream));
+  text-shadow: 0 2px 14px rgb(var(--c-night) / 0.55), 0 1px 2px rgb(var(--c-night) / 0.5);
 }
 
 .now-playing__singer {
   font-family: var(--font-serif);
   font-style: italic;
   font-size: clamp(17px, 2vw, 26px);
-  color: rgb(var(--c-ink-soft));
-  text-shadow: 0 1px 3px rgb(var(--c-mist) / 0.5);
+  color: rgb(var(--c-cream) / 0.85);
+  text-shadow: 0 1px 8px rgb(var(--c-night) / 0.55);
 }
 
 .now-playing__note {
@@ -34,5 +39,6 @@
   font-family: var(--font-label);
   font-size: 11px;
   letter-spacing: 0.04em;
-  color: rgb(var(--c-clay));
+  color: rgb(var(--c-amber));
+  text-shadow: 0 1px 6px rgb(var(--c-night) / 0.6);
 }
