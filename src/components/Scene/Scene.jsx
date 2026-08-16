@@ -1,10 +1,10 @@
+import { usePlayer } from '../../context/PlayerContext'
 import SceneImage from './SceneImage'
 import Mist from './Mist'
 import NowPlaying from '../NowPlaying/NowPlaying'
 import Player from '../Player/Player'
 import Controls from '../Controls/Controls'
-import dawnVillage from '../../assets/dawn-village.jpg'
-import { dawnVillageLqip } from '../../assets/dawnVillageLqip'
+import { sceneImages } from '../../assets/scenes/scenes'
 import './Scene.css'
 
 /**
@@ -13,10 +13,14 @@ import './Scene.css'
  * wall holding the lamplit window (player), sill controls and a diya.
  */
 export default function Scene() {
+  const { index } = usePlayer()
+  // Image follows the track; wraps when there are more tracks than images.
+  const scene = sceneImages[index % sceneImages.length]
+
   return (
     <main className="scene">
       <div className="scene__image">
-        <SceneImage src={dawnVillage} lqip={dawnVillageLqip} alt="" />
+        <SceneImage src={scene.src} lqip={scene.lqip} alt="" />
         <Mist />
         <div className="scene__now">
           <NowPlaying />
