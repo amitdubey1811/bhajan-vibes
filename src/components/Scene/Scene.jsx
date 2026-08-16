@@ -1,6 +1,5 @@
 import { usePlayer } from '../../context/PlayerContext'
 import SceneImage from './SceneImage'
-import Mist from './Mist'
 import NowPlaying from '../NowPlaying/NowPlaying'
 import Player from '../Player/Player'
 import Controls from '../Controls/Controls'
@@ -21,7 +20,6 @@ export default function Scene() {
     <main className="scene">
       <div className="scene__image">
         <SceneImage src={scene.src} lqip={scene.lqip} alt="" />
-        <Mist />
         <div className="scene__now">
           <NowPlaying />
         </div>
