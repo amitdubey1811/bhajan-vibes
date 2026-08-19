@@ -1,0 +1,67 @@
+.coming-soon {
+  min-height: 100dvh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgb(var(--c-night));
+  padding: 6rem var(--space-5);
+}
+
+.coming-soon__inner {
+  text-align: center;
+  max-width: 420px;
+}
+
+.coming-soon__eyebrow {
+  font-family: var(--font-label);
+  font-size: 0.62rem;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: rgb(var(--c-amber) / 0.6);
+  display: inline-block;
+  padding: var(--space-1) var(--space-3);
+  border: 1px dashed rgb(var(--c-amber) / 0.3);
+  border-radius: var(--radius-sm);
+  margin-bottom: var(--space-5);
+}
+
+.coming-soon__title {
+  font-family: var(--font-serif);
+  font-size: 2.4rem;
+  font-weight: var(--weight-regular);
+  color: rgb(var(--c-cream));
+  margin-bottom: var(--space-2);
+}
+
+.coming-soon__hindi {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  color: rgb(var(--c-cream) / 0.4);
+  margin-bottom: var(--space-5);
+}
+
+.coming-soon__desc {
+  font-family: var(--font-serif);
+  font-size: 0.95rem;
+  color: rgb(var(--c-cream) / 0.4);
+  line-height: 1.6;
+  margin-bottom: var(--space-6);
+}
+
+.coming-soon__back {
+  font-family: var(--font-label);
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgb(var(--c-amber) / 0.7);
+  text-decoration: none;
+  padding: var(--space-2) var(--space-4);
+  border: 1px solid rgb(var(--c-amber) / 0.25);
+  border-radius: var(--radius-sm);
+  transition: color 200ms ease, border-color 200ms ease;
+}
+
+.coming-soon__back:hover {
+  color: rgb(var(--c-amber));
+  border-color: rgb(var(--c-amber) / 0.5);
+}
