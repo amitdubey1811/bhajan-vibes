@@ -16,7 +16,7 @@ export default function Footer() {
         </div>
 
         <div className="footer__col">
-          <span className="footer__heading">// Archives</span>
+          <span className="footer__heading">Archives</span>
           <Link to="/album" className="footer__link">The Album</Link>
           <Link to="/doordarshan" className="footer__link">Doordarshan TV</Link>
           <Link to="/drawer" className="footer__link">Cassette Tapes</Link>
@@ -24,7 +24,7 @@ export default function Footer() {
         </div>
 
         <div className="footer__col">
-          <span className="footer__heading">// Interactive</span>
+          <span className="footer__heading">Interactive</span>
           <Link to="/memory-machine" className="footer__link">Memory Machine</Link>
           <Link to="/bhajans" className="footer__link">Bhajan Player</Link>
           <Link to="/radio" className="footer__link">Vividh Bharati Dial</Link>
@@ -32,7 +32,7 @@ export default function Footer() {
         </div>
 
         <div className="footer__col">
-          <span className="footer__heading">// About</span>
+          <span className="footer__heading">About</span>
           <Link to="/about" className="footer__link">The Archive</Link>
           <span className="footer__stamp">
             NOSTALGIA ARCHIVE<br />

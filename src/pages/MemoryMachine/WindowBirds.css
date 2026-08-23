@@ -1,0 +1,130 @@
+.window-birds {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 5;
+  overflow: hidden;
+}
+
+/* Each bird is one frame from the 12-frame sprite (1536x1024, 128px per frame) */
+.window-birds__bird {
+  position: absolute;
+  width: 100px;
+  height: 80px;
+  background-size: 1200% auto;
+  background-repeat: no-repeat;
+  mix-blend-mode: lighten;
+  filter: brightness(1.4) contrast(1.1);
+  image-rendering: auto;
+  transition: transform 2s ease-in-out, opacity 1.5s ease;
+}
+
+/* Bird 1 — on the wooden window sill */
+.window-birds__bird--1 {
+  top: 46%;
+  left: 5%;
+}
+
+/* Bird 2 — slightly right and lower, smaller */
+.window-birds__bird--2 {
+  top: 48%;
+  left: 11%;
+  width: 85px;
+  height: 68px;
+  animation-delay: 0.15s !important;
+}
+
+/* ── Phase: flying in (frames 1-4) ── */
+.window-birds__bird--flying-in {
+  animation: bird-fly-in 0.6s steps(3) infinite;
+  opacity: 1;
+}
+
+.window-birds__bird--1.window-birds__bird--flying-in {
+  transform: translate(-220px, -80px) scale(0.3);
+  animation: bird-fly-in 0.6s steps(3) infinite, bird-approach-1 2s ease-out forwards;
+}
+
+.window-birds__bird--2.window-birds__bird--flying-in {
+  transform: translate(-100px, -30px) scale(0.5);
+  animation: bird-fly-in 0.6s steps(3) infinite, bird-approach-2 2s 0.3s ease-out forwards;
+  opacity: 0;
+}
+
+@keyframes bird-fly-in {
+  from { background-position: 0% 48%; }
+  to { background-position: calc(3 * 100% / 11) 48%; }
+}
+
+@keyframes bird-approach-1 {
+  0% { transform: translate(-220px, -80px) scale(0.3); opacity: 0; }
+  15% { opacity: 0.5; }
+  60% { transform: translate(-40px, -15px) scale(0.75); opacity: 1; }
+  100% { transform: translate(0, 0) scale(1); opacity: 1; }
+}
+
+@keyframes bird-approach-2 {
+  0% { transform: translate(-100px, -30px) scale(0.5); opacity: 0; }
+  30% { opacity: 0.8; }
+  100% { transform: translate(0, 0) scale(0.85); opacity: 1; }
+}
+
+/* ── Phase: perched (frames 5-9) ── */
+.window-birds__bird--perched {
+  animation: bird-perch 2s steps(4) infinite;
+  opacity: 1;
+  transform: translate(0, 0) scale(1);
+}
+
+.window-birds__bird--2.window-birds__bird--perched {
+  transform: translate(0, 0) scale(0.85);
+}
+
+@keyframes bird-perch {
+  from { background-position: calc(4 * 100% / 11) 48%; }
+  to { background-position: calc(8 * 100% / 11) 48%; }
+}
+
+/* ── Phase: flying out (frames 10-12) ── */
+.window-birds__bird--flying-out {
+  animation: bird-fly-out 0.5s steps(2) infinite;
+}
+
+.window-birds__bird--1.window-birds__bird--flying-out {
+  animation: bird-fly-out 0.5s steps(2) infinite, bird-depart-1 2s ease-in forwards;
+}
+
+.window-birds__bird--2.window-birds__bird--flying-out {
+  animation: bird-fly-out 0.5s steps(2) infinite, bird-depart-2 2s 0.2s ease-in forwards;
+}
+
+@keyframes bird-fly-out {
+  from { background-position: calc(9 * 100% / 11) 48%; }
+  to { background-position: 100% 48%; }
+}
+
+@keyframes bird-depart-1 {
+  0% { transform: translate(0, 0) scale(1); opacity: 1; }
+  40% { transform: translate(-30px, -20px) scale(0.85); opacity: 1; }
+  100% { transform: translate(-200px, -90px) scale(0.3); opacity: 0; }
+}
+
+@keyframes bird-depart-2 {
+  0% { transform: translate(0, 0) scale(0.85); opacity: 1; }
+  100% { transform: translate(160px, -90px) scale(0.35); opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .window-birds { display: none; }
+}
+
+@media (max-width: 767px) {
+  .window-birds__bird {
+    width: 65px;
+    height: 52px;
+  }
+  .window-birds__bird--2 {
+    width: 55px;
+    height: 44px;
+  }
+}

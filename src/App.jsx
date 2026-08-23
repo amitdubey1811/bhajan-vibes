@@ -4,6 +4,7 @@ import AppShell from './layout/AppShell'
 import Home from './pages/Home/Home'
 
 const Bhajans = lazy(() => import('./pages/Bhajans/Bhajans'))
+const MemoryMachine = lazy(() => import('./pages/MemoryMachine/MemoryMachine'))
 const ComingSoon = lazy(() => import('./pages/ComingSoon/ComingSoon'))
 
 const Fallback = () => (
@@ -40,7 +41,7 @@ const router = createBrowserRouter([
         path: 'memory-machine',
         element: (
           <Suspense fallback={<Fallback />}>
-            <ComingSoon />
+            <MemoryMachine />
           </Suspense>
         ),
       },

@@ -1,0 +1,55 @@
+.memory-machine {
+  position: relative;
+  width: 100%;
+  height: 100dvh;
+  overflow: hidden;
+  background: rgb(var(--c-night));
+}
+
+/* ── Entry blackout ── */
+.memory-machine__blackout {
+  position: absolute;
+  inset: 0;
+  z-index: 20;
+  background: rgb(var(--c-night));
+  pointer-events: none;
+  transition: opacity 2500ms ease;
+}
+
+.memory-machine__blackout--gone {
+  opacity: 0;
+}
+
+/* ── Mute button ── */
+.memory-machine__mute {
+  position: absolute;
+  top: 100px;
+  right: 120px;
+  z-index: 15;
+  background: rgb(var(--c-night) / 0.6);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  border: 1px solid rgb(var(--c-brass) / 0.2);
+  border-radius: 4px;
+  padding: 6px 10px;
+  cursor: pointer;
+  transition: background 200ms ease, border-color 200ms ease;
+}
+
+.memory-machine__mute:hover {
+  background: rgb(var(--c-night) / 0.8);
+  border-color: rgb(var(--c-brass) / 0.4);
+}
+
+.memory-machine__mute-icon {
+  font-size: 1rem;
+  line-height: 1;
+}
+
+@media (max-width: 767px) {
+  .memory-machine__mute {
+    top: 56px;
+    right: 80px;
+    padding: 5px 8px;
+  }
+}
