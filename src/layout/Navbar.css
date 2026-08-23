@@ -6,40 +6,47 @@
   z-index: 100;
   display: flex;
   align-items: center;
-  gap: var(--space-5);
-  padding: var(--space-3) var(--space-5);
-  background: rgb(var(--c-night) / 0.92);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  border-bottom: 1px solid rgb(var(--c-brass) / 0.15);
+  height: 88px;
+  padding: 0 48px;
+  background: var(--nav-bg);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--nav-border);
 }
 
+/* ── Brand ── */
 .navbar__brand {
   display: flex;
   align-items: baseline;
-  gap: var(--space-3);
+  gap: 14px;
   text-decoration: none;
   flex-shrink: 0;
+  margin-right: 48px;
 }
 
 .navbar__wordmark {
-  font-family: var(--font-serif);
-  font-size: 1.2rem;
-  font-weight: var(--weight-medium);
-  color: rgb(var(--c-amber));
-  letter-spacing: 0.08em;
+  font-family: var(--font-heading);
+  font-size: 31px;
+  font-weight: var(--weight-semi);
+  color: var(--logo-gold);
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
 }
 
 .navbar__hindi {
-  font-family: var(--font-display);
-  font-size: 0.85rem;
-  color: rgb(var(--c-cream) / 0.6);
+  font-family: var(--font-hindi);
+  font-size: 17px;
+  font-weight: var(--weight-medium);
+  color: var(--logo-gold);
 }
 
+/* ── Links ── */
 .navbar__links {
   display: flex;
   align-items: center;
-  gap: var(--space-1);
+  gap: 36px;
+  margin-left: auto;
+  margin-right: 36px;
   overflow-x: auto;
   scrollbar-width: none;
   -ms-overflow-style: none;
@@ -50,35 +57,75 @@
 }
 
 .navbar__link {
-  font-family: var(--font-label);
-  font-size: 0.68rem;
-  letter-spacing: var(--tracking-label);
+  font-family: var(--font-serif);
+  font-size: 13px;
+  font-weight: var(--weight-regular);
+  letter-spacing: 0.025em;
   text-transform: uppercase;
-  color: rgb(var(--c-cream) / 0.5);
+  color: #C8B69B;
   text-decoration: none;
-  padding: var(--space-2) var(--space-3);
-  border-radius: var(--radius-sm);
   white-space: nowrap;
-  transition: color 200ms ease, background 200ms ease;
+  padding-bottom: 4px;
+  border-bottom: 1px solid transparent;
+  transition: color 200ms ease, border-color 200ms ease;
 }
 
 .navbar__link:hover {
-  color: rgb(var(--c-cream) / 0.8);
-  background: rgb(var(--c-cream) / 0.05);
+  color: var(--ivory);
 }
 
 .navbar__link--active {
-  color: rgb(var(--c-amber));
-  background: rgb(var(--c-amber) / 0.08);
+  color: var(--terracotta);
+  border-bottom-color: var(--accent-orange);
 }
 
-/* Mobile: hide nav links, show only brand */
+/* ── Cassette icon (far right) ── */
+.navbar__icon {
+  flex-shrink: 0;
+  color: #C8B69B;
+  opacity: 0.5;
+  display: flex;
+  align-items: center;
+  padding: 8px;
+  border: 1px solid rgba(200, 182, 155, 0.15);
+  border-radius: var(--radius-sm);
+}
+
+/* ── Mobile ── */
 @media (max-width: 767px) {
   .navbar {
-    padding: var(--space-3) var(--space-4);
+    height: 64px;
+    padding: 0 20px;
+  }
+
+  .navbar__wordmark {
+    font-size: 22px;
+  }
+
+  .navbar__hindi {
+    font-size: 13px;
   }
 
   .navbar__links {
     display: none;
+  }
+
+  .navbar__icon {
+    margin-left: auto;
+  }
+}
+
+/* ── Tablet ── */
+@media (min-width: 768px) and (max-width: 1279px) {
+  .navbar {
+    padding: 0 28px;
+  }
+
+  .navbar__links {
+    gap: 20px;
+  }
+
+  .navbar__link {
+    font-size: 11px;
   }
 }

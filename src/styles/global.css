@@ -22,11 +22,11 @@ body,
 }
 
 body {
-  background: rgb(var(--c-night));
-  color: rgb(var(--c-ink));
+  background: var(--black-brown);
+  color: var(--warm-beige);
   font-family: var(--font-serif);
   font-size: 16px;
-  line-height: 1.5;
+  line-height: 1.65;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;

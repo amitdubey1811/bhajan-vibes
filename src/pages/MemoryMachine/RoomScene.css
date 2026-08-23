@@ -1,0 +1,268 @@
+.room {
+  position: relative;
+  width: 100%;
+  height: 100dvh;
+  overflow: hidden;
+  background: rgb(var(--c-night));
+}
+
+/* ── Entry reveal ── */
+.room__base,
+.room__drift,
+.room__sunlight,
+.room__tv-glow,
+.room__grain,
+.room__vignette,
+.room__hotspots,
+.room__badge,
+.room__stamp,
+.room__tip {
+  transition: opacity 1800ms ease;
+}
+
+.room:not(.room--revealed) .room__base,
+.room:not(.room--revealed) .room__drift,
+.room:not(.room--revealed) .room__sunlight,
+.room:not(.room--revealed) .room__tv-glow,
+.room:not(.room--revealed) .room__grain,
+.room:not(.room--revealed) .room__vignette {
+  opacity: 0;
+}
+
+.room:not(.room--revealed) .room__hotspots,
+.room:not(.room--revealed) .room__badge,
+.room:not(.room--revealed) .room__stamp,
+.room:not(.room--revealed) .room__tip {
+  opacity: 0;
+  transition-delay: 800ms;
+}
+
+/* ── Layer 0: Base image ── */
+.room__base {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 45%;
+  z-index: 0;
+  animation: room-kenburns 55s ease-in-out infinite alternate;
+  will-change: transform;
+}
+
+@keyframes room-kenburns {
+  from { transform: scale(1); }
+  to { transform: scale(1.05) translate3d(-0.8%, -0.5%, 0); }
+}
+
+/* ── Sunlight overlay ── */
+.room__sunlight {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  background: radial-gradient(
+    ellipse 35% 65% at 50% 40%,
+    rgb(var(--c-glow) / 0.08) 0%,
+    transparent 70%
+  );
+  animation: sunlight-breathe 8s ease-in-out infinite alternate;
+}
+
+@keyframes sunlight-breathe {
+  from { opacity: 0.6; }
+  to { opacity: 1; }
+}
+
+/* ── TV glow ── */
+.room__tv-glow {
+  position: absolute;
+  right: 6%;
+  top: 22%;
+  width: 12%;
+  height: 16%;
+  z-index: 3;
+  pointer-events: none;
+  border-radius: 2px;
+  background: rgb(var(--c-mist) / 0.04);
+  box-shadow: 0 0 30px 10px rgb(var(--c-mist) / 0.03);
+  animation: tv-flicker 0.15s steps(2) infinite;
+}
+
+@keyframes tv-flicker {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 0.85; }
+}
+
+/* ── Film grain ── */
+.room__grain {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  pointer-events: none;
+  opacity: 0.22;
+  background:
+    repeating-linear-gradient(0deg, rgb(var(--c-mist) / 0.05) 0 1px, rgb(var(--c-night) / 0.05) 1px 2px),
+    repeating-linear-gradient(90deg, rgb(var(--c-mist) / 0.04) 0 1px, rgb(var(--c-night) / 0.04) 1px 2px);
+}
+
+/* ── Vignette ── */
+.room__vignette {
+  position: absolute;
+  inset: 0;
+  z-index: 6;
+  pointer-events: none;
+  background: radial-gradient(
+    ellipse 75% 65% at 50% 48%,
+    transparent 30%,
+    rgb(var(--c-night) / 0.55) 100%
+  );
+}
+
+/* ── Hotspot container ── */
+.room__hotspots {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+}
+
+/* ── UI: Location badge (top-left) ── */
+.room__badge {
+  position: absolute;
+  z-index: 12;
+  background: rgb(var(--c-night) / 0.75);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  border: 1px solid rgb(var(--c-brass) / 0.2);
+  border-radius: 4px;
+  padding: 10px 14px;
+}
+
+.room__badge--location {
+  top: 100px;
+  left: var(--space-5);
+}
+
+.room__badge-text {
+  font-family: var(--font-serif);
+  font-size: 0.85rem;
+  color: rgb(var(--c-cream) / 0.8);
+  display: block;
+}
+
+.room__badge-text strong {
+  color: rgb(var(--c-cream));
+}
+
+.room__badge-sub {
+  font-family: var(--font-label);
+  font-size: 0.6rem;
+  letter-spacing: 0.1em;
+  color: rgb(var(--c-cream) / 0.35);
+  text-transform: uppercase;
+}
+
+/* ── UI: Time badge (top-right) ── */
+.room__badge--time {
+  top: 100px;
+  right: var(--space-5);
+  text-align: right;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.room__badge-day {
+  font-family: var(--font-label);
+  font-size: 0.58rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgb(var(--c-cream) / 0.4);
+}
+
+.room__badge-clock {
+  font-family: var(--font-label);
+  font-size: 1rem;
+  font-weight: var(--weight-medium);
+  color: rgb(var(--c-cream) / 0.85);
+  letter-spacing: 0.04em;
+}
+
+.room__badge-year {
+  font-family: var(--font-label);
+  font-size: 0.65rem;
+  color: rgb(var(--c-amber) / 0.6);
+  letter-spacing: 0.08em;
+}
+
+/* ── UI: Archive stamp (bottom-right) ── */
+.room__stamp {
+  position: absolute;
+  bottom: var(--space-5);
+  right: var(--space-5);
+  z-index: 12;
+  font-family: var(--font-label);
+  font-size: 0.55rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  line-height: 1.6;
+  color: #f0e6d6;
+  background: #3d2a1a;
+  border: 1px solid #5a3d28;
+  border-radius: 3px;
+  padding: var(--space-2) var(--space-3);
+  text-align: center;
+}
+
+/* ── UI: Nostalgia tip (bottom-left) ── */
+.room__tip {
+  position: absolute;
+  bottom: var(--space-5);
+  left: var(--space-5);
+  z-index: 12;
+  max-width: 200px;
+}
+
+.room__tip-label {
+  font-family: var(--font-label);
+  font-size: 0.58rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgb(var(--c-amber) / 0.5);
+  display: block;
+  margin-bottom: 3px;
+}
+
+.room__tip-text {
+  font-family: var(--font-serif);
+  font-size: 0.78rem;
+  font-weight: 700;
+  font-style: italic;
+  line-height: 1.5;
+  color: #ffffff;
+}
+
+/* ── Responsive ── */
+@media (max-width: 767px) {
+  .room__badge--location {
+    top: 56px;
+    left: var(--space-3);
+    padding: 8px 10px;
+  }
+
+  .room__badge--time {
+    top: 56px;
+    right: var(--space-3);
+    padding: 8px 10px;
+  }
+
+  .room__stamp {
+    display: none;
+  }
+
+  .room__tip {
+    bottom: var(--space-3);
+    left: var(--space-3);
+    max-width: 160px;
+  }
+}

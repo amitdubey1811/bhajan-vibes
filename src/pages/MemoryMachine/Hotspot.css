@@ -1,0 +1,247 @@
+.hotspot {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+}
+
+/* ── Trigger button (large tap target) ── */
+.hotspot__trigger {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 12px;
+  outline: none;
+  position: relative;
+}
+
+/* ── Pin dot ── */
+.hotspot__pin {
+  display: block;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #ffffff;
+  border: 2px solid #f5d45a;
+  box-shadow:
+    0 0 10px 4px rgba(245, 212, 90, 0.45),
+    0 0 28px 8px rgba(255, 255, 255, 0.15);
+  transition: transform 300ms ease, box-shadow 300ms ease;
+}
+
+.hotspot--active .hotspot__pin {
+  transform: scale(1.4);
+  background: #ffffff;
+  border-color: #fce078;
+  box-shadow:
+    0 0 12px 5px rgba(245, 212, 90, 0.6),
+    0 0 36px 10px rgba(255, 255, 255, 0.25);
+}
+
+/* ── Mini label (always visible below pin) ── */
+.hotspot__mini-label {
+  display: block;
+  font-family: var(--font-label);
+  font-size: 0.58rem;
+  font-weight: var(--weight-medium);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #f5ecd0;
+  text-shadow:
+    0 1px 3px rgba(23, 18, 15, 0.95),
+    0 0 8px rgba(23, 18, 15, 0.7);
+  white-space: nowrap;
+  transition: color 200ms ease;
+}
+
+.hotspot--active .hotspot__mini-label {
+  color: #fce078;
+}
+
+/* ── Pulse ring ── */
+.hotspot__pulse {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 48px;
+  height: 48px;
+  margin: -24px 0 0 -24px;
+  border-radius: 50%;
+  border: 2px solid rgba(245, 212, 90, 0.35);
+  animation: hotspot-pulse 2.5s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes hotspot-pulse {
+  0%, 100% { transform: scale(1); opacity: 0.6; }
+  50% { transform: scale(2.5); opacity: 0; }
+}
+
+.hotspot--active .hotspot__pulse {
+  animation: none;
+  opacity: 0;
+}
+
+/* ── Card label ── */
+.hotspot__card {
+  position: absolute;
+  bottom: calc(100% + 4px);
+  left: 50%;
+  transform: translateX(-50%) translateY(6px) scale(0.96);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 250ms ease, transform 250ms ease;
+
+  background: rgb(var(--c-night) / 0.92);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgb(var(--c-brass) / 0.35);
+  border-radius: 4px;
+  padding: 12px 16px;
+  min-width: 190px;
+  max-width: 230px;
+  text-align: left;
+
+  box-shadow:
+    0 6px 20px rgb(var(--c-night) / 0.6),
+    inset 0 0 0 1px rgb(var(--c-cream) / 0.04);
+}
+
+.hotspot--active .hotspot__card {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0) scale(1);
+  pointer-events: auto;
+}
+
+/* Connector line from card to pin */
+.hotspot__card::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  margin-left: -0.5px;
+  width: 1px;
+  height: 10px;
+  background: rgb(var(--c-brass) / 0.3);
+}
+
+.hotspot__card-head {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 6px;
+}
+
+.hotspot__icon {
+  font-size: 1rem;
+  line-height: 1;
+}
+
+.hotspot__label {
+  font-family: var(--font-label);
+  font-size: 0.75rem;
+  font-weight: var(--weight-medium);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgb(var(--c-cream) / 0.95);
+}
+
+.hotspot__desc {
+  font-family: var(--font-serif);
+  font-size: 0.82rem;
+  line-height: 1.5;
+  color: rgb(var(--c-cream) / 0.55);
+  margin-bottom: 8px;
+}
+
+.hotspot__action {
+  display: inline-block;
+  font-family: var(--font-label);
+  font-size: 0.62rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgb(var(--c-amber) / 0.8);
+  background: rgb(var(--c-brass) / 0.1);
+  border: 1px solid rgb(var(--c-brass) / 0.25);
+  border-radius: 3px;
+  padding: 5px 12px;
+  cursor: pointer;
+  transition: background 200ms ease, color 200ms ease, border-color 200ms ease;
+}
+
+.hotspot__action:hover {
+  color: rgb(var(--c-amber));
+  background: rgb(var(--c-brass) / 0.2);
+  border-color: rgb(var(--c-brass) / 0.5);
+}
+
+/* ── Vertical: card below pin ── */
+.hotspot--below .hotspot__card {
+  bottom: auto;
+  top: calc(100% + 4px);
+}
+
+.hotspot--below .hotspot__card::after {
+  bottom: auto;
+  top: -10px;
+}
+
+/* ── Edge-aware card alignment ── */
+.hotspot--align-left .hotspot__card {
+  left: 0;
+  transform: translateX(0) translateY(6px) scale(0.96);
+}
+
+.hotspot--align-left.hotspot--active .hotspot__card {
+  transform: translateX(0) translateY(0) scale(1);
+}
+
+.hotspot--align-left .hotspot__card::after {
+  left: 12px;
+  margin-left: 0;
+}
+
+.hotspot--align-right .hotspot__card {
+  left: auto;
+  right: 0;
+  transform: translateX(0) translateY(6px) scale(0.96);
+}
+
+.hotspot--align-right.hotspot--active .hotspot__card {
+  transform: translateX(0) translateY(0) scale(1);
+}
+
+.hotspot--align-right .hotspot__card::after {
+  left: auto;
+  right: 12px;
+  margin-left: 0;
+}
+
+/* ── Focus visible ── */
+.hotspot__trigger:focus-visible .hotspot__pin {
+  outline: 2px solid rgb(var(--c-amber));
+  outline-offset: 4px;
+}
+
+/* ── Responsive ── */
+@media (max-width: 767px) {
+  .hotspot__card {
+    min-width: 170px;
+    max-width: 190px;
+    padding: 10px 14px;
+  }
+
+  .hotspot__mini-label {
+    font-size: 0.52rem;
+  }
+}
+
+/* ── Reduced motion ── */
+@media (prefers-reduced-motion: reduce) {
+  .hotspot__pulse {
+    animation: none;
+  }
+}

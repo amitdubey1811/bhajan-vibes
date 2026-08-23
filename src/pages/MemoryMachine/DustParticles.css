@@ -1,0 +1,37 @@
+.dust {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 4;
+}
+
+.dust__mote {
+  position: absolute;
+  border-radius: 50%;
+  background: rgb(var(--c-flame-core));
+  box-shadow: 0 0 4px 1px rgb(var(--c-glow) / 0.3);
+  animation: dust-float linear infinite;
+  will-change: transform, opacity;
+}
+
+@keyframes dust-float {
+  0% {
+    transform: translate3d(0, 0, 0);
+    opacity: 0;
+  }
+  10% {
+    opacity: var(--dust-opacity, 0.3);
+  }
+  50% {
+    transform: translate3d(var(--drift), -30px, 0);
+    opacity: var(--dust-opacity, 0.25);
+  }
+  90% {
+    opacity: var(--dust-opacity, 0.3);
+  }
+  100% {
+    transform: translate3d(calc(var(--drift) * -0.5), 25px, 0);
+    opacity: 0;
+  }
+}
