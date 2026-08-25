@@ -112,6 +112,7 @@ class AudioManager {
     if (!this.muted) {
       this.masterGain.gain.value = 1
     }
+    window.dispatchEvent(new CustomEvent('external-audio-start'))
   }
 
   deactivate() {

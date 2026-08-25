@@ -5,6 +5,7 @@ import Home from './pages/Home/Home'
 
 const Bhajans = lazy(() => import('./pages/Bhajans/Bhajans'))
 const MemoryMachine = lazy(() => import('./pages/MemoryMachine/MemoryMachine'))
+const Doordarshan = lazy(() => import('./pages/Doordarshan/Doordarshan'))
 const ComingSoon = lazy(() => import('./pages/ComingSoon/ComingSoon'))
 
 const Fallback = () => (
@@ -57,7 +58,7 @@ const router = createBrowserRouter([
         path: 'doordarshan',
         element: (
           <Suspense fallback={<Fallback />}>
-            <ComingSoon />
+            <Doordarshan />
           </Suspense>
         ),
       },

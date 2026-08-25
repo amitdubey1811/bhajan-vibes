@@ -78,8 +78,16 @@ export function useYouTubePlayer({ tracks, mountId, initialVolume = 80 }) {
     goTo(indexRef.current - 1, { autoplay: true })
   }, [goTo])
 
-  // Play/pause the current track. The click is a user gesture, so
-  // playVideo() is allowed under the autoplay policy.
+  const pause = useCallback(() => {
+    const player = playerRef.current
+    if (!player) return
+    const YT = window.YT
+    const state = player.getPlayerState()
+    if (state === YT.PlayerState.PLAYING || state === YT.PlayerState.BUFFERING) {
+      player.pauseVideo()
+    }
+  }, [])
+
   const togglePlay = useCallback(() => {
     const player = playerRef.current
     if (!player) return
@@ -191,6 +199,7 @@ export function useYouTubePlayer({ tracks, mountId, initialVolume = 80 }) {
     prev,
     isPlaying,
     togglePlay,
+    pause,
     volume,
     setVolume: changeVolume,
   }
