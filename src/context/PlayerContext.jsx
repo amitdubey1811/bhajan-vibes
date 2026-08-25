@@ -1,17 +1,15 @@
-import { createContext, useContext, useEffect, useState } from 'react'
+import { createContext, useContext, useEffect, useRef, useState } from 'react'
 import { getPlaylist } from '../lib/playlistSource'
 import { useYouTubePlayer } from '../hooks/useYouTubePlayer'
 
-// The element the YT.Player replaces. Shared so Player renders the mount
-// and the hook targets the same id.
 const PLAYER_MOUNT_ID = 'yt-player'
 
 const PlayerContext = createContext(null)
 
 export function PlayerProvider({ children }) {
   const [tracks, setTracks] = useState([])
+  const slotRef = useRef(null)
 
-  // Single data-access point (swappable to HTTP in Phase 2).
   useEffect(() => {
     let active = true
     getPlaylist().then((list) => {
@@ -24,7 +22,13 @@ export function PlayerProvider({ children }) {
 
   const player = useYouTubePlayer({ tracks, mountId: PLAYER_MOUNT_ID })
 
-  const value = { ...player, mountId: PLAYER_MOUNT_ID }
+  useEffect(() => {
+    const handler = () => player.pause()
+    window.addEventListener('external-audio-start', handler)
+    return () => window.removeEventListener('external-audio-start', handler)
+  }, [player.pause])
+
+  const value = { ...player, mountId: PLAYER_MOUNT_ID, slotRef }
 
   return <PlayerContext.Provider value={value}>{children}</PlayerContext.Provider>
 }

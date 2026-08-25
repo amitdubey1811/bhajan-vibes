@@ -1,0 +1,131 @@
+.persistent-player {
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+.persistent-player__iframe {
+  width: 100%;
+  height: 100%;
+}
+
+.persistent-player__iframe > * {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+/* ── Embedded mode: overlay on the Scene's player slot ── */
+.persistent-player--embedded {
+  pointer-events: auto;
+}
+
+/* ── Mini player: floating bottom-right ── */
+.persistent-player--mini {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  width: 320px;
+  z-index: 1000;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.6),
+    0 0 0 1px rgba(201, 138, 72, 0.25);
+  background: #17120f;
+}
+
+.persistent-player--mini .persistent-player__iframe {
+  height: 200px;
+}
+
+/* ── Hidden mode: offscreen but still 240x240 for YT compliance ── */
+.persistent-player--hidden {
+  position: fixed;
+  bottom: -400px;
+  right: 24px;
+  width: 240px;
+  height: 240px;
+  opacity: 0;
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* ── Mini player controls bar ── */
+.persistent-player__bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  background: linear-gradient(180deg, #1e1814, #17120f);
+  border-top: 1px solid rgba(201, 138, 72, 0.15);
+}
+
+.persistent-player__track {
+  flex: 1;
+  font-family: 'Noto Serif Devanagari', serif;
+  font-size: 0.8rem;
+  color: #e8dcc7;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.4;
+}
+
+.persistent-player__actions {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex-shrink: 0;
+}
+
+.persistent-player__btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border: none;
+  border-radius: 50%;
+  background: rgba(201, 138, 72, 0.12);
+  color: #c98a48;
+  font-size: 0.65rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.persistent-player__btn:hover {
+  background: rgba(201, 138, 72, 0.25);
+}
+
+.persistent-player__btn--play {
+  width: 32px;
+  height: 32px;
+  font-size: 0.85rem;
+  background: rgba(201, 138, 72, 0.2);
+}
+
+.persistent-player__btn--close {
+  color: #e8dcc7;
+  opacity: 0.5;
+  font-size: 0.7rem;
+}
+
+.persistent-player__btn--close:hover {
+  opacity: 1;
+  background: rgba(200, 60, 60, 0.2);
+  color: #e8dcc7;
+}
+
+/* ── Mobile: smaller mini player ── */
+@media (max-width: 480px) {
+  .persistent-player--mini {
+    left: 12px;
+    right: 12px;
+    bottom: 12px;
+    width: auto;
+  }
+
+  .persistent-player--mini .persistent-player__iframe {
+    height: 180px;
+  }
+}
