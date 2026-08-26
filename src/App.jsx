@@ -6,6 +6,8 @@ import Home from './pages/Home/Home'
 const Bhajans = lazy(() => import('./pages/Bhajans/Bhajans'))
 const MemoryMachine = lazy(() => import('./pages/MemoryMachine/MemoryMachine'))
 const Doordarshan = lazy(() => import('./pages/Doordarshan/Doordarshan'))
+const Radio = lazy(() => import('./pages/Radio/Radio'))
+const Album = lazy(() => import('./pages/Album/Album'))
 const ComingSoon = lazy(() => import('./pages/ComingSoon/ComingSoon'))
 
 const Fallback = () => (
@@ -50,7 +52,7 @@ const router = createBrowserRouter([
         path: 'album',
         element: (
           <Suspense fallback={<Fallback />}>
-            <ComingSoon />
+            <Album />
           </Suspense>
         ),
       },
@@ -66,7 +68,7 @@ const router = createBrowserRouter([
         path: 'radio',
         element: (
           <Suspense fallback={<Fallback />}>
-            <ComingSoon />
+            <Radio />
           </Suspense>
         ),
       },

@@ -1,0 +1,332 @@
+/* ============================================================
+   Radio — Vividh Bharati Dial
+   ============================================================ */
+
+/* ── Hero ── */
+
+.radio-hero {
+  background: var(--deep-brown);
+  padding: calc(var(--space-8) + 60px) 80px var(--space-8);
+  min-height: 100dvh;
+  display: flex;
+  align-items: center;
+}
+
+.radio-hero__content {
+  display: flex;
+  gap: 64px;
+  align-items: center;
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+/* ── Teak radio cabinet ── */
+
+.radio-hero__cabinet {
+  background: #4a3326;
+  border: 2px solid var(--logo-gold);
+  border-radius: 12px;
+  padding: 36px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+  width: 540px;
+  flex-shrink: 0;
+}
+
+.radio-hero__grille {
+  background: var(--black-brown);
+  border-radius: 6px;
+  padding: var(--space-4);
+  height: 160px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.radio-hero__grille-line {
+  display: block;
+  width: 100%;
+  height: 2px;
+  background: var(--logo-gold);
+  opacity: 0.15;
+}
+
+.radio-hero__dial {
+  background: #111;
+  border: 1px solid var(--logo-gold);
+  border-radius: 4px;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.radio-hero__dial-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.radio-hero__dial-band {
+  font-family: var(--font-label);
+  font-size: 0.6875rem;
+  color: var(--logo-gold);
+  letter-spacing: var(--tracking-label);
+}
+
+.radio-hero__dial-station {
+  font-family: var(--font-display);
+  font-size: 1.375rem;
+  color: var(--ivory);
+}
+
+.radio-hero__dial-freq {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  width: 120px;
+}
+
+.radio-hero__dial-needle {
+  display: block;
+  width: 3px;
+  height: 30px;
+  background: var(--terracotta);
+}
+
+.radio-hero__dial-mhz {
+  font-family: var(--font-label);
+  font-size: 0.625rem;
+  color: var(--logo-gold);
+  letter-spacing: var(--tracking-label);
+}
+
+/* ── Hero text ── */
+
+.radio-hero__text {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+.radio-hero__badge {
+  display: inline-block;
+  align-self: flex-start;
+  border: 1px dashed var(--logo-gold);
+  border-radius: var(--radius-sm);
+  padding: 6px var(--space-4);
+  font-family: var(--font-label);
+  font-size: 0.6875rem;
+  font-weight: var(--weight-semi);
+  color: var(--logo-gold);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+}
+
+.radio-hero__title {
+  font-family: var(--font-display);
+  font-size: 4rem;
+  font-weight: 700;
+  color: var(--ivory);
+  line-height: 1.1;
+  margin: 0;
+}
+
+.radio-hero__subtitle {
+  font-family: var(--font-serif);
+  font-size: 1.125rem;
+  color: var(--ivory);
+  opacity: 0.7;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.radio-hero__play-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-4);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  color: var(--ivory);
+  font-family: var(--font-display);
+  font-size: 1.125rem;
+  transition: opacity 0.3s var(--ease-soft);
+}
+
+.radio-hero__play-btn:hover {
+  opacity: 0.8;
+}
+
+.radio-hero__play-icon {
+  width: 44px;
+  height: 44px;
+  color: var(--logo-gold);
+  flex-shrink: 0;
+}
+
+/* ── Live stations section ── */
+
+.radio-stations {
+  background: var(--deep-brown);
+  padding: var(--space-8) 80px;
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
+}
+
+.radio-stations__header {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.radio-stations__label {
+  font-family: var(--font-label);
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--terracotta);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+}
+
+.radio-stations__heading {
+  font-family: var(--font-display);
+  font-size: 2.5rem;
+  font-weight: 400;
+  color: var(--ivory);
+  margin: 0;
+}
+
+.radio-stations__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-5);
+}
+
+/* ── Station card ── */
+
+.radio-station {
+  background: #f1e6d2;
+  border: 1px solid #dfd2be;
+  border-radius: 4px;
+  padding: var(--space-5);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.radio-station__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-3);
+}
+
+.radio-station__name {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--black-brown);
+  margin: 0;
+}
+
+.radio-station__format {
+  font-family: var(--font-label);
+  font-size: 0.75rem;
+  color: var(--terracotta);
+  letter-spacing: var(--tracking-label);
+  white-space: nowrap;
+  flex-shrink: 0;
+  padding-top: 6px;
+}
+
+.radio-station__desc {
+  font-family: var(--font-serif);
+  font-size: 0.875rem;
+  color: #6b5a51;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.radio-station__on-air {
+  display: inline-block;
+  align-self: flex-start;
+  background: var(--deep-brown);
+  border-radius: var(--radius-sm);
+  padding: 6px var(--space-3);
+  font-family: var(--font-label);
+  font-size: 0.6875rem;
+  color: var(--logo-gold);
+  letter-spacing: var(--tracking-label);
+}
+
+/* ── Responsive ── */
+
+@media (max-width: 1024px) {
+  .radio-hero {
+    padding: calc(var(--space-8) + 60px) var(--space-6) var(--space-8);
+  }
+
+  .radio-hero__content {
+    flex-direction: column;
+    gap: var(--space-7);
+  }
+
+  .radio-hero__cabinet {
+    width: 100%;
+    max-width: 540px;
+  }
+
+  .radio-hero__title {
+    font-size: 3rem;
+  }
+
+  .radio-stations {
+    padding: var(--space-8) var(--space-6);
+  }
+
+  .radio-stations__grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .radio-hero {
+    padding: calc(var(--space-7) + 56px) var(--space-4) var(--space-7);
+  }
+
+  .radio-hero__cabinet {
+    padding: var(--space-5);
+  }
+
+  .radio-hero__grille {
+    height: 120px;
+  }
+
+  .radio-hero__title {
+    font-size: 2.25rem;
+  }
+
+  .radio-hero__subtitle {
+    font-size: 1rem;
+  }
+
+  .radio-stations {
+    padding: var(--space-7) var(--space-4);
+  }
+
+  .radio-stations__heading {
+    font-size: 1.75rem;
+  }
+
+  .radio-station__header {
+    flex-direction: column;
+    gap: 4px;
+  }
+}
