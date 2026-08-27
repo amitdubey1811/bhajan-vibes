@@ -9,17 +9,28 @@
   background: var(--black-brown);
 }
 
-/* ── Table scene background ── */
+/* ── Table scene background (no zoom, natural size) ── */
+
+.drawer-page__bg-wrap {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 0;
+  overflow: hidden;
+}
 
 .drawer-page__bg {
-  position: absolute;
-  inset: 0;
   width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center 40%;
-  filter: sepia(0.12) saturate(0.8) brightness(0.55) contrast(1.05);
-  z-index: 0;
+  height: auto;
+  display: block;
+  filter: sepia(0.12) saturate(0.8) brightness(0.5) contrast(1.05);
+  transition: filter 1.8s var(--ease-soft), transform 2s var(--ease-soft);
+}
+
+.drawer-page--open .drawer-page__bg {
+  filter: sepia(0.12) saturate(0.8) brightness(0.35) contrast(1.05) blur(6px);
+  transform: scale(1.04);
 }
 
 .drawer-page__overlay {
@@ -35,13 +46,19 @@
     ),
     linear-gradient(
       to bottom,
-      rgba(17, 12, 9, 0.4) 0%,
-      rgba(17, 12, 9, 0.15) 40%,
-      rgba(17, 12, 9, 0.3) 100%
+      rgba(17, 12, 9, 0.5) 0%,
+      rgba(17, 12, 9, 0.1) 30%,
+      rgba(17, 12, 9, 0.15) 70%,
+      rgba(17, 12, 9, 0.4) 100%
     );
+  transition: background 0.8s var(--ease-soft);
 }
 
-/* ── Floating dust motes ── */
+.drawer-page--open .drawer-page__overlay {
+  background: rgba(17, 12, 9, 0.55);
+}
+
+/* ── Ambient floating dust ── */
 
 .drawer-page__dust {
   position: absolute;
@@ -81,13 +98,26 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: calc(var(--space-8) + 88px) var(--space-6) var(--space-8);
+  padding: calc(var(--space-8) + 88px) var(--space-6) var(--space-6);
   min-height: 100dvh;
+  transition: justify-content 0.6s var(--ease-soft);
+}
+
+.drawer-page--open .drawer-page__content {
+  justify-content: center;
+  padding-top: 88px;
 }
 
 .drawer-page__header {
   text-align: center;
-  margin-bottom: var(--space-8);
+  margin-bottom: 0;
+  transition: opacity 1.2s var(--ease-soft), transform 1.2s var(--ease-soft);
+}
+
+.drawer-page--open .drawer-page__header {
+  opacity: 0;
+  transform: translateY(-15px);
+  pointer-events: none;
 }
 
 .drawer-page__eyebrow {
@@ -121,12 +151,24 @@
   margin: 0;
 }
 
+/* Push the handle down to the drawer area in the table image */
+.drawer-page__spacer {
+  flex: 1;
+  min-height: 120px;
+  transition: flex 0.6s var(--ease-soft), min-height 0.6s var(--ease-soft);
+}
+
+.drawer-page--open .drawer-page__spacer {
+  flex: 0;
+  min-height: 0;
+}
+
 .drawer-page__prompt {
   font-family: var(--font-serif);
   font-size: 0.875rem;
   color: var(--warm-beige);
   opacity: 0.5;
-  margin-top: var(--space-5);
+  margin-top: var(--space-3);
   animation: prompt-pulse 3s var(--ease-soft) infinite;
 }
 
@@ -136,33 +178,185 @@
 }
 
 /* ============================================================
-   Drawer unit — the physical drawer
+   Drawer handle — positioned on the drawer in the image
    ============================================================ */
 
-.drawer-unit {
+.drawer-handle {
   position: relative;
-  width: 100%;
-  max-width: 700px;
-  perspective: 800px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: var(--space-4);
+  margin-bottom: var(--space-4);
 }
 
-/* ── Interior (hidden behind front, revealed on open) ── */
-
-.drawer-unit__interior {
+.drawer-handle__ring {
+  width: 44px;
+  height: 44px;
+  border: 2px solid var(--logo-gold);
+  border-radius: var(--radius-round);
   position: relative;
-  width: 100%;
-  opacity: 0;
-  transform: scale(0.98);
-  transition: opacity 0.6s 0.3s var(--ease-soft), transform 0.6s 0.3s var(--ease-soft);
-  overflow: hidden;
+  animation: handle-glow 3s var(--ease-soft) infinite;
 }
 
-.drawer-unit--open .drawer-unit__interior {
+.drawer-handle__ring::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 14px;
+  height: 14px;
+  background: var(--logo-gold);
+  border-radius: var(--radius-round);
+  opacity: 0.7;
+}
+
+@keyframes handle-glow {
+  0%, 100% { box-shadow: 0 0 12px rgba(201, 138, 72, 0.2); }
+  50% { box-shadow: 0 0 24px rgba(201, 138, 72, 0.5); }
+}
+
+.drawer-handle__label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-label);
+  font-size: 0.625rem;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--logo-gold);
+  opacity: 0.6;
+  transition: opacity 0.3s var(--ease-soft);
+}
+
+.drawer-handle:hover .drawer-handle__label {
   opacity: 1;
-  transform: scale(1);
 }
 
-.drawer-unit__interior-img {
+.drawer-handle:hover .drawer-handle__ring {
+  border-color: var(--ivory);
+}
+
+/* ============================================================
+   Dust burst — particles that fly out when drawer opens
+   ============================================================ */
+
+.drawer-dust-burst {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 200px;
+  pointer-events: none;
+  z-index: 10;
+  overflow: visible;
+}
+
+.drawer-dust-burst__mote {
+  position: absolute;
+  bottom: 0;
+  width: 4px;
+  height: 4px;
+  background: rgba(201, 184, 158, 0.5);
+  border-radius: var(--radius-round);
+  animation: dust-burst-up ease-out forwards;
+}
+
+@keyframes dust-burst-up {
+  0% {
+    opacity: 0;
+    transform: translateY(0) translateX(0) scale(1);
+  }
+  15% {
+    opacity: 0.8;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-180px) translateX(var(--drift, 20px)) scale(0.3);
+  }
+}
+
+.drawer-dust-burst__mote:nth-child(odd) { --drift: -25px; }
+.drawer-dust-burst__mote:nth-child(even) { --drift: 30px; }
+.drawer-dust-burst__mote:nth-child(3n) { --drift: -40px; width: 3px; height: 3px; }
+.drawer-dust-burst__mote:nth-child(5n) { --drift: 45px; width: 2px; height: 2px; }
+.drawer-dust-burst__mote:nth-child(7n) { --drift: -15px; }
+
+/* ============================================================
+   Open drawer — staged slide-in animation
+   ============================================================ */
+
+.drawer-open {
+  position: relative;
+  width: 100%;
+  max-width: 820px;
+  opacity: 0;
+  transform: translateY(30px) scale(0.96);
+  transform-origin: top center;
+  clip-path: inset(0 0 100% 0);
+  transition:
+    clip-path 2s cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 1.4s 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 2s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: clip-path, opacity, transform;
+}
+
+.drawer-open--visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  clip-path: inset(0 0 0 0);
+}
+
+.drawer-open__container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.drawer-open__close-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(17, 12, 9, 0.5);
+  border: 1px solid rgba(201, 138, 72, 0.25);
+  border-radius: var(--radius-sm);
+  padding: 8px var(--space-4);
+  color: var(--logo-gold);
+  font-family: var(--font-label);
+  font-size: 0.625rem;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 0.2s var(--ease-soft), border-color 0.2s var(--ease-soft);
+  align-self: flex-end;
+  opacity: 0;
+  animation: fade-in-delayed 0.6s 1.6s var(--ease-soft) forwards;
+}
+
+.drawer-open__close-btn:hover {
+  background: rgba(17, 12, 9, 0.7);
+  border-color: var(--logo-gold);
+}
+
+@keyframes fade-in-delayed {
+  from { opacity: 0; transform: translateY(-4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.drawer-open__interior {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  border-radius: 4px;
+}
+
+.drawer-open__interior-img {
   width: 100%;
   height: auto;
   display: block;
@@ -172,78 +366,19 @@
 
 /* ── Objects grid inside the drawer ── */
 
-.drawer-unit__objects {
+.drawer-open__objects {
   position: absolute;
   inset: 12% 8% 18% 8%;
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(5, 1fr);
   grid-template-rows: repeat(2, 1fr);
   gap: 8px;
   align-items: center;
   justify-items: center;
-  pointer-events: none;
-}
-
-.drawer-unit--open .drawer-unit__objects {
-  pointer-events: auto;
-}
-
-/* ── Drawer front panel ── */
-
-.drawer-unit__front {
-  position: relative;
-  width: 100%;
-  background: none;
-  border: none;
-  padding: 0;
-  cursor: pointer;
-  transform-origin: bottom center;
-  transition: transform 0.8s cubic-bezier(0.23, 1, 0.32, 1);
-  z-index: 2;
-}
-
-.drawer-unit--open .drawer-unit__front {
-  transform: translateY(40px) rotateX(75deg);
-  pointer-events: none;
-  opacity: 0.6;
-}
-
-.drawer-unit__front-img {
-  width: 100%;
-  height: auto;
-  display: block;
-  filter: brightness(0.9) contrast(1.05);
-  transition: filter 0.3s var(--ease-soft);
-}
-
-.drawer-unit__front:hover .drawer-unit__front-img {
-  filter: brightness(1) contrast(1.05);
-}
-
-.drawer-unit__pull-hint {
-  position: absolute;
-  bottom: -32px;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  font-family: var(--font-label);
-  font-size: 0.625rem;
-  letter-spacing: var(--tracking-label);
-  text-transform: uppercase;
-  color: var(--logo-gold);
-  opacity: 0;
-  transition: opacity 0.3s var(--ease-soft);
-  white-space: nowrap;
-}
-
-.drawer-unit__front:hover .drawer-unit__pull-hint {
-  opacity: 0.8;
 }
 
 /* ============================================================
-   Individual object buttons
+   Individual object buttons — staged fade-in
    ============================================================ */
 
 .drawer-obj {
@@ -252,18 +387,40 @@
   border: none;
   padding: 4px;
   cursor: pointer;
-  transition: transform 0.4s var(--ease-soft), filter 0.3s var(--ease-soft);
   max-width: 100%;
   max-height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
+  opacity: 0;
+  animation: obj-appear 0.7s var(--ease-soft) forwards;
 }
 
 .drawer-obj:hover {
-  transform: scale(1.12) translateY(-4px);
-  filter: brightness(1.15);
   z-index: 5;
+}
+
+.drawer-obj__inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: transform 0.4s var(--ease-soft), filter 0.3s var(--ease-soft);
+}
+
+@keyframes obj-appear {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.drawer-obj:hover .drawer-obj__inner {
+  transform: scale(1.15) translateY(-4px);
+  filter: brightness(1.15);
 }
 
 .drawer-obj__img {
@@ -275,7 +432,12 @@
 }
 
 .drawer-obj:hover .drawer-obj__img {
-  filter: drop-shadow(0 8px 20px rgba(10, 7, 5, 0.6));
+  filter: drop-shadow(0 8px 20px rgba(10, 7, 5, 0.7));
+}
+
+/* Coin is smaller */
+.drawer-obj--small .drawer-obj__img {
+  max-height: 70px;
 }
 
 .drawer-obj__hint {
@@ -423,36 +585,40 @@
 
 @media (max-width: 1024px) {
   .drawer-page__content {
-    padding: calc(var(--space-7) + 88px) var(--space-5) var(--space-7);
+    padding: calc(var(--space-7) + 88px) var(--space-5) var(--space-6);
   }
 
-  .drawer-unit {
+  .drawer-open {
     max-width: 580px;
   }
 }
 
 @media (max-width: 768px) {
   .drawer-page__content {
-    padding: calc(var(--space-7) + 64px) var(--space-4) var(--space-7);
+    padding: calc(var(--space-7) + 64px) var(--space-4) var(--space-5);
   }
 
-  .drawer-page__header {
-    margin-bottom: var(--space-7);
+  .drawer-page__spacer {
+    min-height: 40px;
   }
 
-  .drawer-unit {
+  .drawer-open {
     max-width: 100%;
   }
 
-  .drawer-unit__objects {
-    grid-template-columns: repeat(3, 1fr);
+  .drawer-open__objects {
+    grid-template-columns: repeat(4, 1fr);
     grid-template-rows: auto;
     gap: 4px;
-    inset: 8% 6% 14% 6%;
+    inset: 8% 5% 14% 5%;
   }
 
   .drawer-obj__img {
     max-height: 64px;
+  }
+
+  .drawer-obj--small .drawer-obj__img {
+    max-height: 44px;
   }
 
   .drawer-detail__card {
@@ -478,13 +644,17 @@
 }
 
 @media (max-width: 480px) {
-  .drawer-unit__objects {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 4px;
+  .drawer-open__objects {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 3px;
   }
 
   .drawer-obj__img {
     max-height: 56px;
+  }
+
+  .drawer-obj--small .drawer-obj__img {
+    max-height: 36px;
   }
 
   .drawer-obj__hint {

@@ -55,4 +55,28 @@ export const objects = [
     memory:
       'The Camlin fountain pen with the gold nib and maroon body. Ink-stained fingers were a badge of honour. You had to hold it just right or it would blot. Every exam started with filling this from a Chelpark bottle.',
   },
+  {
+    id: 'batteries',
+    name: 'Eveready & Nippo Cells',
+    nameHi: 'एवरेडी और निप्पो सेल',
+    image: '/images/drawer/batteries.png',
+    memory:
+      'One Eveready, one Nippo — D-size, heavy duty. The red cat logo and the arrow logo. These powered the transistor radio, the torch for load-shedding nights, and the wall clock. You always kept spares in the drawer because the power could go any time.',
+  },
+  {
+    id: 'toy-car',
+    name: 'Tin Toy Car',
+    nameHi: 'टिन की खिलौना गाड़ी',
+    image: '/images/drawer/toy-car.png',
+    memory:
+      'Number 8, racing stripes, chipped red and yellow paint. No batteries needed — you pushed it with your hand and imagined the rest. The checkered flags on the hood promised races that happened only on the veranda floor.',
+  },
+  {
+    id: 'newspaper',
+    name: 'Newspaper Clipping',
+    nameHi: 'अख़बार की कतरन',
+    image: '/images/drawer/newspaper.png',
+    memory:
+      'Dainik Jagran, Kanpur, 12 May 1995. "गर्मी और लू से जनजीवन प्रभावित" — 45 degrees and the city melted. Someone cut this out and kept it. Maybe because it was the hottest day they remembered, or maybe they just forgot to throw it away.',
+  },
 ]
