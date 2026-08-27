@@ -1,0 +1,493 @@
+/* ============================================================
+   The Drawer — forgotten treasures
+   ============================================================ */
+
+.drawer-page {
+  position: relative;
+  min-height: 100dvh;
+  overflow-x: hidden;
+  background: var(--black-brown);
+}
+
+/* ── Table scene background ── */
+
+.drawer-page__bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 40%;
+  filter: sepia(0.12) saturate(0.8) brightness(0.55) contrast(1.05);
+  z-index: 0;
+}
+
+.drawer-page__overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background:
+    radial-gradient(
+      ellipse 70% 60% at 50% 45%,
+      transparent 30%,
+      rgba(17, 12, 9, 0.6) 100%
+    ),
+    linear-gradient(
+      to bottom,
+      rgba(17, 12, 9, 0.4) 0%,
+      rgba(17, 12, 9, 0.15) 40%,
+      rgba(17, 12, 9, 0.3) 100%
+    );
+}
+
+/* ── Floating dust motes ── */
+
+.drawer-page__dust {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.drawer-page__dust-mote {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  background: rgba(201, 184, 158, 0.35);
+  border-radius: var(--radius-round);
+  animation: dust-float linear infinite;
+}
+
+@keyframes dust-float {
+  0% {
+    opacity: 0;
+    transform: translateY(100vh) translateX(0);
+  }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% {
+    opacity: 0;
+    transform: translateY(-20px) translateX(30px);
+  }
+}
+
+/* ── Page content ── */
+
+.drawer-page__content {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: calc(var(--space-8) + 88px) var(--space-6) var(--space-8);
+  min-height: 100dvh;
+}
+
+.drawer-page__header {
+  text-align: center;
+  margin-bottom: var(--space-8);
+}
+
+.drawer-page__eyebrow {
+  display: inline-block;
+  font-family: var(--font-label);
+  font-size: 0.6875rem;
+  font-weight: var(--weight-medium);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  color: var(--logo-gold);
+  border: 1px dashed rgba(201, 138, 72, 0.4);
+  border-radius: var(--radius-sm);
+  padding: 6px var(--space-4);
+  margin-bottom: var(--space-4);
+}
+
+.drawer-page__title {
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 5vw, 4.5rem);
+  font-weight: 700;
+  color: var(--ivory);
+  line-height: 1.1;
+  margin: var(--space-4) 0 var(--space-3);
+}
+
+.drawer-page__subtitle {
+  font-family: var(--font-hindi);
+  font-size: clamp(1rem, 2vw, 1.25rem);
+  color: var(--warm-beige);
+  opacity: 0.7;
+  margin: 0;
+}
+
+.drawer-page__prompt {
+  font-family: var(--font-serif);
+  font-size: 0.875rem;
+  color: var(--warm-beige);
+  opacity: 0.5;
+  margin-top: var(--space-5);
+  animation: prompt-pulse 3s var(--ease-soft) infinite;
+}
+
+@keyframes prompt-pulse {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 0.6; }
+}
+
+/* ============================================================
+   Drawer unit — the physical drawer
+   ============================================================ */
+
+.drawer-unit {
+  position: relative;
+  width: 100%;
+  max-width: 700px;
+  perspective: 800px;
+}
+
+/* ── Interior (hidden behind front, revealed on open) ── */
+
+.drawer-unit__interior {
+  position: relative;
+  width: 100%;
+  opacity: 0;
+  transform: scale(0.98);
+  transition: opacity 0.6s 0.3s var(--ease-soft), transform 0.6s 0.3s var(--ease-soft);
+  overflow: hidden;
+}
+
+.drawer-unit--open .drawer-unit__interior {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.drawer-unit__interior-img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 4px;
+  filter: brightness(0.85) contrast(1.05);
+}
+
+/* ── Objects grid inside the drawer ── */
+
+.drawer-unit__objects {
+  position: absolute;
+  inset: 12% 8% 18% 8%;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 8px;
+  align-items: center;
+  justify-items: center;
+  pointer-events: none;
+}
+
+.drawer-unit--open .drawer-unit__objects {
+  pointer-events: auto;
+}
+
+/* ── Drawer front panel ── */
+
+.drawer-unit__front {
+  position: relative;
+  width: 100%;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  transform-origin: bottom center;
+  transition: transform 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+  z-index: 2;
+}
+
+.drawer-unit--open .drawer-unit__front {
+  transform: translateY(40px) rotateX(75deg);
+  pointer-events: none;
+  opacity: 0.6;
+}
+
+.drawer-unit__front-img {
+  width: 100%;
+  height: auto;
+  display: block;
+  filter: brightness(0.9) contrast(1.05);
+  transition: filter 0.3s var(--ease-soft);
+}
+
+.drawer-unit__front:hover .drawer-unit__front-img {
+  filter: brightness(1) contrast(1.05);
+}
+
+.drawer-unit__pull-hint {
+  position: absolute;
+  bottom: -32px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-label);
+  font-size: 0.625rem;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--logo-gold);
+  opacity: 0;
+  transition: opacity 0.3s var(--ease-soft);
+  white-space: nowrap;
+}
+
+.drawer-unit__front:hover .drawer-unit__pull-hint {
+  opacity: 0.8;
+}
+
+/* ============================================================
+   Individual object buttons
+   ============================================================ */
+
+.drawer-obj {
+  position: relative;
+  background: none;
+  border: none;
+  padding: 4px;
+  cursor: pointer;
+  transition: transform 0.4s var(--ease-soft), filter 0.3s var(--ease-soft);
+  max-width: 100%;
+  max-height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.drawer-obj:hover {
+  transform: scale(1.12) translateY(-4px);
+  filter: brightness(1.15);
+  z-index: 5;
+}
+
+.drawer-obj__img {
+  width: 100%;
+  max-height: 120px;
+  object-fit: contain;
+  filter: drop-shadow(0 4px 12px rgba(10, 7, 5, 0.5));
+  transition: filter 0.3s var(--ease-soft);
+}
+
+.drawer-obj:hover .drawer-obj__img {
+  filter: drop-shadow(0 8px 20px rgba(10, 7, 5, 0.6));
+}
+
+.drawer-obj__hint {
+  position: absolute;
+  bottom: -18px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: var(--font-hindi);
+  font-size: 0.625rem;
+  color: var(--ivory);
+  white-space: nowrap;
+  opacity: 0;
+  transition: opacity 0.3s var(--ease-soft);
+  pointer-events: none;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.7);
+}
+
+.drawer-obj:hover .drawer-obj__hint {
+  opacity: 1;
+}
+
+/* ============================================================
+   Object detail overlay
+   ============================================================ */
+
+.drawer-detail {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(17, 12, 9, 0.85);
+  backdrop-filter: blur(8px);
+  animation: detail-fade-in 0.4s var(--ease-soft);
+  padding: var(--space-5);
+}
+
+@keyframes detail-fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.drawer-detail__card {
+  position: relative;
+  background: var(--deep-brown);
+  border: 1px solid rgba(201, 138, 72, 0.25);
+  border-radius: 8px;
+  max-width: 720px;
+  width: 100%;
+  display: flex;
+  overflow: hidden;
+  animation: detail-card-in 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+  box-shadow: var(--shadow-archival);
+}
+
+@keyframes detail-card-in {
+  from {
+    opacity: 0;
+    transform: scale(0.92) translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.drawer-detail__close {
+  position: absolute;
+  top: var(--space-3);
+  right: var(--space-3);
+  width: 32px;
+  height: 32px;
+  background: rgba(17, 12, 9, 0.6);
+  border: 1px solid rgba(201, 138, 72, 0.2);
+  border-radius: var(--radius-round);
+  color: var(--ivory);
+  font-size: 1.25rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+  transition: background 0.2s var(--ease-soft);
+  line-height: 1;
+}
+
+.drawer-detail__close:hover {
+  background: rgba(17, 12, 9, 0.8);
+}
+
+.drawer-detail__image-wrap {
+  flex: 0 0 45%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-6);
+  background: rgba(0, 0, 0, 0.25);
+}
+
+.drawer-detail__img {
+  max-width: 100%;
+  max-height: 320px;
+  object-fit: contain;
+  filter: drop-shadow(0 6px 20px rgba(0, 0, 0, 0.4));
+}
+
+.drawer-detail__text {
+  flex: 1;
+  padding: var(--space-6);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: var(--space-3);
+}
+
+.drawer-detail__label {
+  font-family: var(--font-hindi);
+  font-size: 0.8125rem;
+  color: var(--logo-gold);
+  opacity: 0.8;
+}
+
+.drawer-detail__title {
+  font-family: var(--font-display);
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--ivory);
+  margin: 0;
+  line-height: 1.2;
+}
+
+.drawer-detail__memory {
+  font-family: var(--font-serif);
+  font-size: 0.875rem;
+  color: var(--warm-beige);
+  line-height: 1.7;
+  margin: 0;
+  opacity: 0.85;
+}
+
+/* ============================================================
+   Responsive
+   ============================================================ */
+
+@media (max-width: 1024px) {
+  .drawer-page__content {
+    padding: calc(var(--space-7) + 88px) var(--space-5) var(--space-7);
+  }
+
+  .drawer-unit {
+    max-width: 580px;
+  }
+}
+
+@media (max-width: 768px) {
+  .drawer-page__content {
+    padding: calc(var(--space-7) + 64px) var(--space-4) var(--space-7);
+  }
+
+  .drawer-page__header {
+    margin-bottom: var(--space-7);
+  }
+
+  .drawer-unit {
+    max-width: 100%;
+  }
+
+  .drawer-unit__objects {
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: auto;
+    gap: 4px;
+    inset: 8% 6% 14% 6%;
+  }
+
+  .drawer-obj__img {
+    max-height: 64px;
+  }
+
+  .drawer-detail__card {
+    flex-direction: column;
+  }
+
+  .drawer-detail__image-wrap {
+    flex: none;
+    padding: var(--space-5);
+  }
+
+  .drawer-detail__img {
+    max-height: 200px;
+  }
+
+  .drawer-detail__text {
+    padding: var(--space-4) var(--space-5) var(--space-5);
+  }
+
+  .drawer-detail__title {
+    font-size: 1.375rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .drawer-unit__objects {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 4px;
+  }
+
+  .drawer-obj__img {
+    max-height: 56px;
+  }
+
+  .drawer-obj__hint {
+    font-size: 0.5rem;
+  }
+}

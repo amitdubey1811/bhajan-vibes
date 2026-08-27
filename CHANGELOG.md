@@ -25,13 +25,32 @@ Format: [Keep a Changelog](https://keepachangelog.com/). Phases map to major fea
   - "The Hindustan Transmission" newspaper-style TV schedule with 17 time slots
   - Test Card & Sign-Off section with color bars and sign-off description
   - Self-contained data in `shows.js` (shows, categories, schedule)
+- **Radio page** (`/radio`) — nostalgic AM/FM radio experience
+  - Teak radio cabinet hero with grille lines, tuning dial, and frequency needle
+  - 3 retro Indian live stations (AIR, Vividh Bharati, FM Rainbow) with on-air badges
+  - Self-contained data in `stations.js`
+- **Album page** (`/album`) — family photo album archive
+  - Full-bleed hero with Yashica camera desk background and sepia overlay
+  - Browse Albums grid with 6 album cards (Life in the 90s, Family Times, School Days, etc.)
+  - Cream background browse section with gold-framed album cards
+  - Self-contained data in `albums.js`
+- **The Drawer page** (`/drawer`) — interactive forgotten treasures drawer
+  - Table scene background with warm afternoon light, dust particles, and sepia filter
+  - Wooden drawer with brass knob — click to open with 3D rotateX animation
+  - Green velvet-lined drawer interior with 7 childhood objects scattered inside
+  - Objects: Papa's cassette (TDK D90), inland letter (Kanpur 1996), school photograph, UPSRTC bus ticket, KV report card, 50 paise coin, Camlin fountain pen
+  - Click any object for a detail overlay with image, Hindi label, and nostalgic memory text
+  - Backdrop blur overlay with fade-in animation
+  - Self-contained data in `objects.js`
 
 ### Changed
 - `AppShell.jsx` — now wraps children in `PlayerProvider` and renders `PersistentPlayer`
 - `Player.jsx` — renders visual brass frame only; iframe lives in `PersistentPlayer`
 - `Bhajans.jsx` — removed `PlayerProvider` wrapper (now at app level)
 - `PlayerContext.jsx` — added `slotRef` for iframe positioning, listens for external audio events
-- `App.jsx` — Doordarshan route now loads actual page instead of ComingSoon
+- `App.jsx` — Radio, Album, and Drawer routes now load actual pages instead of ComingSoon
+- Home page hero overlay brightened to preserve original image warmth
+- Album hero overlay balanced for nostalgia feel with text readability
 
 ---
 
