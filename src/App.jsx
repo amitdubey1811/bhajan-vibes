@@ -8,6 +8,7 @@ const MemoryMachine = lazy(() => import('./pages/MemoryMachine/MemoryMachine'))
 const Doordarshan = lazy(() => import('./pages/Doordarshan/Doordarshan'))
 const Radio = lazy(() => import('./pages/Radio/Radio'))
 const Album = lazy(() => import('./pages/Album/Album'))
+const Drawer = lazy(() => import('./pages/Drawer/Drawer'))
 const ComingSoon = lazy(() => import('./pages/ComingSoon/ComingSoon'))
 
 const Fallback = () => (
@@ -76,7 +77,7 @@ const router = createBrowserRouter([
         path: 'drawer',
         element: (
           <Suspense fallback={<Fallback />}>
-            <ComingSoon />
+            <Drawer />
           </Suspense>
         ),
       },
