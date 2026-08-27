@@ -8,7 +8,6 @@ const links = [
   { to: '/radio', label: 'Radio' },
   { to: '/bhajans', label: 'Bhajans' },
   { to: '/drawer', label: 'The Drawer' },
-  { to: '/letters', label: 'Letters' },
   { to: '/memory-machine', label: 'Memory Machine' },
   { to: '/about', label: 'The Archive' },
 ]

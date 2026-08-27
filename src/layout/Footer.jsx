@@ -28,7 +28,6 @@ export default function Footer() {
           <Link to="/memory-machine" className="footer__link">Memory Machine</Link>
           <Link to="/bhajans" className="footer__link">Bhajan Player</Link>
           <Link to="/radio" className="footer__link">Vividh Bharati Dial</Link>
-          <Link to="/letters" className="footer__link">Inland Letter Box</Link>
         </div>
 
         <div className="footer__col">
