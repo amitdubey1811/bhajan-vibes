@@ -35,12 +35,15 @@ Format: [Keep a Changelog](https://keepachangelog.com/). Phases map to major fea
   - Cream background browse section with gold-framed album cards
   - Self-contained data in `albums.js`
 - **The Drawer page** (`/drawer`) — interactive forgotten treasures drawer
-  - Table scene background with warm afternoon light, dust particles, and sepia filter
-  - Wooden drawer with brass knob — click to open with 3D rotateX animation
-  - Green velvet-lined drawer interior with 7 childhood objects scattered inside
-  - Objects: Papa's cassette (TDK D90), inland letter (Kanpur 1996), school photograph, UPSRTC bus ticket, KV report card, 50 paise coin, Camlin fountain pen
+  - Full table scene background (no zoom) with warm afternoon light, dust particles, and sepia filter
+  - Glowing brass handle hotspot on the drawer — click to open
+  - Slow-motion drawer reveal with clip-path animation (2s ease), dust burst particles on open
+  - Background blurs and scales slightly when drawer opens; header text fades out
+  - Green velvet-lined drawer interior (820px max-width, centered) with 10 childhood objects
+  - Objects: Papa's cassette, inland letter, school photograph, bus ticket, report card, 50 paise coin, Camlin pen, Eveready & Nippo cells, tin toy car, newspaper clipping
+  - Staggered object fade-in animation with hover scale effect
   - Click any object for a detail overlay with image, Hindi label, and nostalgic memory text
-  - Backdrop blur overlay with fade-in animation
+  - Close drawer button to return to initial state
   - Self-contained data in `objects.js`
 
 ### Changed

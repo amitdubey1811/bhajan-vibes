@@ -16,22 +16,43 @@ function DustParticles() {
   )
 }
 
-function DrawerObject({ obj, onClick }) {
+function DrawerDustBurst() {
+  return (
+    <div className="drawer-dust-burst" aria-hidden="true">
+      {Array.from({ length: 18 }, (_, i) => (
+        <span
+          key={i}
+          className="drawer-dust-burst__mote"
+          style={{
+            left: `${15 + Math.random() * 70}%`,
+            animationDelay: `${Math.random() * 0.6}s`,
+            animationDuration: `${1.5 + Math.random() * 2}s`,
+          }}
+        />
+      ))}
+    </div>
+  )
+}
+
+function DrawerObject({ obj, onClick, index }) {
   return (
     <button
-      className="drawer-obj"
+      className={`drawer-obj ${obj.id === 'coin' ? 'drawer-obj--small' : ''}`}
       onClick={() => onClick(obj)}
       type="button"
       aria-label={`Inspect ${obj.name}`}
+      style={{ animationDelay: `${1.2 + index * 0.12}s` }}
     >
-      <img
-        className="drawer-obj__img"
-        src={obj.image}
-        alt={obj.name}
-        loading="lazy"
-        draggable="false"
-      />
-      <span className="drawer-obj__hint">{obj.nameHi}</span>
+      <span className="drawer-obj__inner">
+        <img
+          className="drawer-obj__img"
+          src={obj.image}
+          alt={obj.name}
+          loading="lazy"
+          draggable="false"
+        />
+        <span className="drawer-obj__hint">{obj.nameHi}</span>
+      </span>
     </button>
   )
 }
@@ -75,6 +96,10 @@ export default function Drawer() {
     if (!isOpen) setIsOpen(true)
   }, [isOpen])
 
+  const handleClose = useCallback(() => {
+    setIsOpen(false)
+  }, [])
+
   const handleObjectClick = useCallback((obj) => {
     setSelectedObj(obj)
   }, [])
@@ -84,14 +109,16 @@ export default function Drawer() {
   }, [])
 
   return (
-    <div className="drawer-page">
-      <img
-        className="drawer-page__bg"
-        src="/images/drawer/table-scene.png"
-        alt=""
-        aria-hidden="true"
-        draggable="false"
-      />
+    <div className={`drawer-page ${isOpen ? 'drawer-page--open' : ''}`}>
+      <div className="drawer-page__bg-wrap">
+        <img
+          className="drawer-page__bg"
+          src="/images/drawer/table-scene.png"
+          alt=""
+          aria-hidden="true"
+          draggable="false"
+        />
+      </div>
       <div className="drawer-page__overlay" aria-hidden="true" />
       <DustParticles />
 
@@ -104,51 +131,66 @@ export default function Drawer() {
           </p>
         </div>
 
-        <div className={`drawer-unit ${isOpen ? 'drawer-unit--open' : ''}`}>
-          <div className="drawer-unit__interior">
-            <img
-              className="drawer-unit__interior-img"
-              src="/images/drawer/drawer-interior.png"
-              alt="Inside the drawer"
-              draggable="false"
-            />
-            <div className="drawer-unit__objects">
-              {objects.map((obj) => (
-                <DrawerObject
-                  key={obj.id}
-                  obj={obj}
-                  onClick={handleObjectClick}
-                />
-              ))}
-            </div>
-          </div>
+        {/* Spacer to push handle down to the drawer area in the image */}
+        <div className="drawer-page__spacer" />
 
+        {/* Clickable hotspot positioned on the drawer knob */}
+        {!isOpen && (
           <button
-            className="drawer-unit__front"
+            className="drawer-handle"
             onClick={handleOpen}
             type="button"
-            aria-label={isOpen ? 'Drawer is open' : 'Click to open the drawer'}
+            aria-label="Open the drawer"
           >
-            <img
-              className="drawer-unit__front-img"
-              src="/images/drawer/drawer-front.png"
-              alt="Wooden drawer"
-              draggable="false"
-            />
-            {!isOpen && (
-              <span className="drawer-unit__pull-hint">
-                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5">
-                  <path d="M8 3v10M4 9l4 4 4-4" />
-                </svg>
-                Pull to open
-              </span>
-            )}
+            <span className="drawer-handle__ring" />
+            <span className="drawer-handle__label">
+              <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5">
+                <path d="M8 3v10M4 9l4 4 4-4" />
+              </svg>
+              Pull to open
+            </span>
           </button>
+        )}
+
+        {/* Open drawer with objects */}
+        <div className={`drawer-open ${isOpen ? 'drawer-open--visible' : ''}`}>
+          {isOpen && <DrawerDustBurst />}
+          <div className="drawer-open__container">
+            <button
+              className="drawer-open__close-btn"
+              onClick={handleClose}
+              type="button"
+              aria-label="Close the drawer"
+            >
+              <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5">
+                <path d="M8 13V3M4 7l4-4 4 4" />
+              </svg>
+              Close drawer
+            </button>
+            <div className="drawer-open__interior">
+              <img
+                className="drawer-open__interior-img"
+                src="/images/drawer/drawer-interior.png"
+                alt="Inside the drawer"
+                draggable="false"
+              />
+              <div className="drawer-open__objects">
+                {objects.map((obj, i) => (
+                  <DrawerObject
+                    key={obj.id}
+                    obj={obj}
+                    onClick={handleObjectClick}
+                    index={i}
+                  />
+                ))}
+              </div>
+            </div>
+          </div>
         </div>
 
         {!isOpen && (
           <p className="drawer-page__prompt">
-            Click the drawer handle to discover what lies inside...
+            Click the drawer to discover what lies inside...
           </p>
         )}
       </div>
