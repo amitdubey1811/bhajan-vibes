@@ -31,8 +31,6 @@ export default function Footer() {
         </div>
 
         <div className="footer__col">
-          <span className="footer__heading">About</span>
-          <Link to="/about" className="footer__link">The Archive</Link>
           <span className="footer__stamp">
             NOSTALGIA ARCHIVE<br />
             ROLL NO. 001<br />

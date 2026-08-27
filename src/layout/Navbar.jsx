@@ -9,7 +9,6 @@ const links = [
   { to: '/bhajans', label: 'Bhajans' },
   { to: '/drawer', label: 'The Drawer' },
   { to: '/memory-machine', label: 'Memory Machine' },
-  { to: '/about', label: 'The Archive' },
 ]
 
 export default function Navbar() {

@@ -82,14 +82,6 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: 'about',
-        element: (
-          <Suspense fallback={<Fallback />}>
-            <ComingSoon />
-          </Suspense>
-        ),
-      },
-      {
         path: '*',
         element: (
           <Suspense fallback={<Fallback />}>
